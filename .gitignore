@@ -1,0 +1,12 @@
+# Agent folders
+.agents/
+.claude/
+
+## Agent plugins
+projectmem/
+
+node_modules/
+.DS_Store
+*.log
+*.vsix
+*.zip
