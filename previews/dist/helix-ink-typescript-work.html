@@ -1,0 +1,2265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lacuna — Helix / Ink / TypeScript / Working environment</title>
+<meta name="description" content="Lacuna Paper and Ink in Helix and Zed: Helix / Ink / TypeScript / Working environment. Part of a 24-page specimen set inside the Aporia system." />
+<style>
+/* GENERATED: semantic roles resolved by aporia/build.mjs */
+:root {
+  --aporia-font-display: "Russo One", "Arial Black", system-ui, sans-serif;
+  --aporia-font-body: "Golos Text", Vazirmatn, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --aporia-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --aporia-paper-bg-canvas: #EDE4D3;
+  --aporia-paper-bg-surface: #E0D8C8;
+  --aporia-paper-bg-surface-warm: #E3DACA;
+  --aporia-paper-bg-overlay: #E0D8C8;
+  --aporia-paper-fg-primary: #0D0D0D;
+  --aporia-paper-fg-heading: #1A1A18;
+  --aporia-paper-fg-secondary: #524F48;
+  --aporia-paper-fg-tertiary: #615D54;
+  --aporia-paper-fg-meta: #3A3A36;
+  --aporia-paper-border-decorative: rgb(58 58 54 / 0.34);
+  --aporia-paper-border-soft: rgb(58 58 54 / 0.18);
+  --aporia-paper-border-control: #3A3A36;
+  --aporia-paper-border-focus: #B01E28;
+  --aporia-paper-accent-brand: #B01E28;
+  --aporia-paper-accent-text: #B01E28;
+  --aporia-paper-accent-on: #EDE4D3;
+  --aporia-paper-interactive-primary-bg: #0D0D0D;
+  --aporia-paper-interactive-primary-fg: #EDE4D3;
+  --aporia-paper-interactive-primary-hover: #2F2E2B;
+  --aporia-paper-interactive-primary-pressed: #201F1D;
+  --aporia-paper-interactive-hover: #DFD7C6;
+  --aporia-paper-interactive-pressed: #D5CDBD;
+  --aporia-paper-interactive-selected: #D8D0C0;
+  --aporia-paper-interactive-disabled-fg: #8A867C;
+  --aporia-paper-link-default: #B01E28;
+  --aporia-paper-link-visited: #8B3A2E;
+  --aporia-paper-status-success: #0D0D0D;
+  --aporia-paper-status-info: #524F48;
+  --aporia-paper-status-warning: #8B3A2E;
+  --aporia-paper-status-danger: #B01E28;
+  --aporia-paper-editor-line-active: #E3DBCC;
+  --aporia-paper-editor-selection: #CCDDEE;
+  --aporia-paper-editor-search-match: #EAD9B6;
+  --aporia-paper-editor-cursor: #B01E28;
+  --aporia-paper-editor-cursor-text: #EDE4D3;
+  --aporia-paper-editor-line-number: #615D54;
+  --aporia-paper-editor-line-number-active: #0D0D0D;
+  --aporia-paper-editor-tab-marker: #B01E28;
+  --aporia-paper-editor-diff-added: #CBE2CF;
+  --aporia-paper-editor-diff-removed: #F0D5D2;
+  --aporia-paper-editor-diff-added-mark: #426247;
+  --aporia-paper-editor-diff-removed-mark: #B01E28;
+  --aporia-paper-editor-diff-modified-mark: #79551F;
+  --aporia-paper-syntax-keyword: #B01E28;
+  --aporia-paper-syntax-type: #79551F;
+  --aporia-paper-syntax-function: #343A35;
+  --aporia-paper-syntax-string: #426247;
+  --aporia-paper-syntax-number: #8B3A2E;
+  --aporia-paper-syntax-comment: #615D54;
+  --aporia-paper-syntax-variable: #0D0D0D;
+  --aporia-paper-syntax-property: #0D0D0D;
+  --aporia-paper-syntax-operator: #3A3A36;
+  --aporia-paper-syntax-punctuation: #3A3A36;
+  --aporia-paper-syntax-macro: #79551F;
+  --aporia-paper-syntax-markup-heading: #0D0D0D;
+  --aporia-paper-syntax-markup-link: #B01E28;
+  --aporia-paper-syntax-markup-code: #343A35;
+  --aporia-paper-chart-1: #0D0D0D;
+  --aporia-paper-chart-2: #B01E28;
+  --aporia-paper-chart-3: #79551F;
+  --aporia-paper-chart-4: #3B5876;
+  --aporia-paper-terminal-bg: #EDE4D3;
+  --aporia-paper-terminal-fg: #0D0D0D;
+  --aporia-paper-terminal-ansi-0: #0D0D0D;
+  --aporia-paper-terminal-ansi-1: #B01E28;
+  --aporia-paper-terminal-ansi-2: #426247;
+  --aporia-paper-terminal-ansi-3: #79551F;
+  --aporia-paper-terminal-ansi-4: #3B5876;
+  --aporia-paper-terminal-ansi-5: #6C4860;
+  --aporia-paper-terminal-ansi-6: #255F62;
+  --aporia-paper-terminal-ansi-7: #524F48;
+  --aporia-paper-terminal-ansi-8: #3A3A36;
+  --aporia-paper-terminal-ansi-9: #8B3A2E;
+  --aporia-paper-terminal-ansi-10: #344F39;
+  --aporia-paper-terminal-ansi-11: #674611;
+  --aporia-paper-terminal-ansi-12: #334F6D;
+  --aporia-paper-terminal-ansi-13: #634057;
+  --aporia-paper-terminal-ansi-14: #1B575A;
+  --aporia-paper-terminal-ansi-15: #1A1A18;
+  --aporia-ink-bg-canvas: #191B1A;
+  --aporia-ink-bg-surface: #252826;
+  --aporia-ink-bg-surface-warm: #202321;
+  --aporia-ink-bg-overlay: #252826;
+  --aporia-ink-fg-primary: #EDE4D3;
+  --aporia-ink-fg-heading: #EDE4D3;
+  --aporia-ink-fg-secondary: #A9A394;
+  --aporia-ink-fg-tertiary: #8E9588;
+  --aporia-ink-fg-meta: #D2C7AE;
+  --aporia-ink-border-decorative: #393D39;
+  --aporia-ink-border-soft: #202321;
+  --aporia-ink-border-control: #A9A394;
+  --aporia-ink-border-focus: #D87975;
+  --aporia-ink-accent-brand: #B01E28;
+  --aporia-ink-accent-text: #D87975;
+  --aporia-ink-accent-on: #191B1A;
+  --aporia-ink-interactive-primary-bg: #EDE4D3;
+  --aporia-ink-interactive-primary-fg: #191B1A;
+  --aporia-ink-interactive-primary-hover: #D6CDBC;
+  --aporia-ink-interactive-primary-pressed: #C6BDAC;
+  --aporia-ink-interactive-hover: #2B2F2D;
+  --aporia-ink-interactive-pressed: #333634;
+  --aporia-ink-interactive-selected: #2D322F;
+  --aporia-ink-interactive-disabled-fg: #5B5F5B;
+  --aporia-ink-link-default: #D87975;
+  --aporia-ink-link-visited: #CC9684;
+  --aporia-ink-status-success: #EDE4D3;
+  --aporia-ink-status-info: #A9A394;
+  --aporia-ink-status-warning: #D1A17D;
+  --aporia-ink-status-danger: #D87975;
+  --aporia-ink-editor-line-active: #1E2120;
+  --aporia-ink-editor-selection: #1D2732;
+  --aporia-ink-editor-search-match: #362913;
+  --aporia-ink-editor-cursor: #D87975;
+  --aporia-ink-editor-cursor-text: #191B1A;
+  --aporia-ink-editor-line-number: #8E9588;
+  --aporia-ink-editor-line-number-active: #EDE4D3;
+  --aporia-ink-editor-tab-marker: #D87975;
+  --aporia-ink-editor-diff-added: #1C2B1F;
+  --aporia-ink-editor-diff-removed: #331D1B;
+  --aporia-ink-editor-diff-added-mark: #9BAF98;
+  --aporia-ink-editor-diff-removed-mark: #D87975;
+  --aporia-ink-editor-diff-modified-mark: #C19B62;
+  --aporia-ink-syntax-keyword: #D87975;
+  --aporia-ink-syntax-type: #C19B62;
+  --aporia-ink-syntax-function: #D2C7AE;
+  --aporia-ink-syntax-string: #9BAF98;
+  --aporia-ink-syntax-number: #D1A17D;
+  --aporia-ink-syntax-comment: #8E9588;
+  --aporia-ink-syntax-variable: #EDE4D3;
+  --aporia-ink-syntax-property: #EDE4D3;
+  --aporia-ink-syntax-operator: #A9A394;
+  --aporia-ink-syntax-punctuation: #A9A394;
+  --aporia-ink-syntax-macro: #C19B62;
+  --aporia-ink-syntax-markup-heading: #EDE4D3;
+  --aporia-ink-syntax-markup-link: #D87975;
+  --aporia-ink-syntax-markup-code: #D2C7AE;
+  --aporia-ink-chart-1: #EDE4D3;
+  --aporia-ink-chart-2: #D87975;
+  --aporia-ink-chart-3: #C19B62;
+  --aporia-ink-chart-4: #93AECA;
+  --aporia-ink-terminal-bg: #191B1A;
+  --aporia-ink-terminal-fg: #EDE4D3;
+  --aporia-ink-terminal-ansi-0: #393D39;
+  --aporia-ink-terminal-ansi-1: #D87975;
+  --aporia-ink-terminal-ansi-2: #9BAF98;
+  --aporia-ink-terminal-ansi-3: #C19B62;
+  --aporia-ink-terminal-ansi-4: #93AECA;
+  --aporia-ink-terminal-ansi-5: #C19FB5;
+  --aporia-ink-terminal-ansi-6: #86B5B7;
+  --aporia-ink-terminal-ansi-7: #D2C7AE;
+  --aporia-ink-terminal-ansi-8: #888E87;
+  --aporia-ink-terminal-ansi-9: #E59A96;
+  --aporia-ink-terminal-ansi-10: #ACC6AC;
+  --aporia-ink-terminal-ansi-11: #D9B982;
+  --aporia-ink-terminal-ansi-12: #A6C1DD;
+  --aporia-ink-terminal-ansi-13: #D5B2C8;
+  --aporia-ink-terminal-ansi-14: #98C8CA;
+  --aporia-ink-terminal-ansi-15: #EDE4D3;
+}
+
+/* ---------------------------------------------------------------
+   Aporia tokens — the page is printed matter. Lacuna values sit
+   beside them and only ever reach an editor surface.
+   --------------------------------------------------------------- */
+:root {
+  --bone: var(--aporia-paper-bg-canvas);
+  --sheet: var(--aporia-paper-bg-surface);
+  --onyx: var(--aporia-paper-fg-primary);
+  --muted: var(--aporia-paper-fg-secondary);
+  --rule: var(--aporia-paper-border-decorative);
+  --rule-soft: var(--aporia-paper-border-soft);
+  --red: var(--aporia-paper-accent-text);
+  --chestnut: var(--aporia-paper-status-warning);
+
+  --display: var(--aporia-font-display);
+  --body: var(--aporia-font-body);
+  --mono: var(--aporia-font-mono);
+
+  --pad: 32px;
+  --measure: 62ch;
+  --ease: cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bone);
+  color: var(--onyx);
+  font: 400 16px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The grain plate: fixed, flat, never animated. Content sits above it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+.shell { position: relative; z-index: 1; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   Masthead + control band
+   --------------------------------------------------------------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bone);
+  border-bottom: 1px solid var(--onyx);
+}
+
+.topbar-in {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 56px;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brand i {
+  display: block;
+  width: 1px;
+  height: 14px;
+  background: var(--rule);
+}
+
+.brand em {
+  font-style: normal;
+  color: var(--muted);
+}
+
+.topbar-sub {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.topbar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tbtn {
+  min-height: 44px;
+  padding: 0 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: border-color 140ms var(--ease), background 140ms var(--ease);
+}
+
+.tbtn:hover { border-bottom-color: var(--onyx); }
+.tbtn:active { background: color-mix(in srgb, var(--onyx) 6%, transparent); }
+
+.controlbar {
+  position: sticky;
+  top: 56px;
+  z-index: 29;
+  background: var(--bone);
+  border-bottom: 1px solid var(--rule);
+}
+
+.controlbar-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  min-height: 52px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.crumbs {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.crumbs b { color: var(--onyx); font-weight: 500; }
+
+.groups {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.group > span {
+  margin-right: 6px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.seg {
+  min-height: 44px;
+  padding: 0 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  transition: color 120ms var(--ease), border-color 120ms var(--ease);
+}
+
+.seg:hover { color: var(--onyx); border-bottom-color: var(--rule); }
+.seg[aria-current="page"] { color: var(--onyx); border-bottom-color: var(--onyx); }
+
+/* ---------------------------------------------------------------
+   Interior page head (Aporia posture: numeral, title, meta, ghost)
+   --------------------------------------------------------------- */
+.phead {
+  position: relative;
+  padding: 48px 0 20px;
+  border-bottom: 1px solid var(--onyx);
+}
+
+.phead::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: var(--rule-soft);
+}
+
+.phead-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 196px;
+  gap: 24px;
+  align-items: start;
+}
+
+.folio {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 6px;
+  font-family: var(--display);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.star {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: var(--red);
+  opacity: 0.55;
+}
+
+.kicker {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.phead h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(40px, 7vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.phead h1 small {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.lede {
+  max-width: var(--measure);
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.matrix {
+  margin: 0;
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.matrix b { font-weight: 500; }
+.matrix .dim { color: var(--muted); }
+
+.ghost {
+  position: absolute;
+  right: 200px;
+  top: -30px;
+  font-family: var(--display);
+  font-size: 168px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--onyx);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---------------------------------------------------------------
+   Plate
+   --------------------------------------------------------------- */
+.plate {
+  margin-top: 30px;
+  border: 1px solid var(--onyx);
+  background: var(--bone);
+}
+
+.plate-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--onyx);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plate-head .fig { font-weight: 500; }
+.plate-head .file { color: var(--muted); }
+.plate-head .right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+
+.prov {
+  border: 1px solid var(--onyx);
+  padding: 2px 6px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.prov.pending { border-style: dashed; color: var(--muted); }
+
+.cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 9px;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.cap b { font-weight: 500; color: var(--onyx); }
+
+/* ---------------------------------------------------------------
+   Editor surfaces — shared
+   --------------------------------------------------------------- */
+.ed {
+  --e-bg: var(--aporia-paper-bg-canvas);
+  --e-surface: var(--aporia-paper-bg-surface);
+  --e-fg: var(--aporia-paper-fg-primary);
+  --e-muted: var(--aporia-paper-editor-line-number);
+  --e-hairline: var(--aporia-paper-border-decorative);
+  --e-comment: var(--aporia-paper-syntax-comment);
+  --e-keyword: var(--aporia-paper-syntax-keyword);
+  --e-type: var(--aporia-paper-syntax-type);
+  --e-string: var(--aporia-paper-syntax-string);
+  --e-number: var(--aporia-paper-syntax-number);
+  --e-error: var(--aporia-paper-status-danger);
+  --e-warning: var(--aporia-paper-status-warning);
+  --e-select: var(--aporia-paper-editor-selection);
+  --e-sel-bg: var(--aporia-paper-editor-selection);
+  --e-sel-fg: var(--aporia-paper-fg-primary);
+  --e-active: var(--aporia-paper-editor-line-active);
+  --e-search: var(--aporia-paper-editor-search-match);
+  --e-search-soft: var(--aporia-paper-editor-search-match);
+  --e-add: var(--aporia-paper-editor-diff-added);
+  --e-del: var(--aporia-paper-editor-diff-removed);
+  --e-change: var(--aporia-paper-interactive-hover);
+
+  background: var(--e-bg);
+  color: var(--e-fg);
+}
+
+.ed[data-edition="ink"] {
+  --e-select: var(--aporia-ink-editor-selection);
+  --e-sel-bg: var(--aporia-ink-editor-selection);
+  --e-sel-fg: var(--aporia-ink-fg-primary);
+  --e-bg: var(--aporia-ink-bg-canvas);
+  --e-surface: var(--aporia-ink-bg-surface);
+  --e-fg: var(--aporia-ink-fg-primary);
+  --e-muted: var(--aporia-ink-editor-line-number);
+  --e-hairline: var(--aporia-ink-border-decorative);
+  --e-comment: var(--aporia-ink-syntax-comment);
+  --e-keyword: var(--aporia-ink-syntax-keyword);
+  --e-type: var(--aporia-ink-syntax-type);
+  --e-string: var(--aporia-ink-syntax-string);
+  --e-number: var(--aporia-ink-syntax-number);
+  --e-error: var(--aporia-ink-status-danger);
+  --e-warning: var(--aporia-ink-status-warning);
+  --e-active: var(--aporia-ink-editor-line-active);
+  --e-search: var(--aporia-ink-editor-search-match);
+  --e-search-soft: var(--aporia-ink-editor-search-match);
+  --e-add: var(--aporia-ink-editor-diff-added);
+  --e-del: var(--aporia-ink-editor-diff-removed);
+  --e-change: var(--aporia-ink-interactive-hover);
+}
+
+.ed ::selection { background: var(--e-sel-bg); color: var(--e-sel-fg); }
+
+.ed-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 12px;
+  background: var(--e-surface);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+  min-height: 34px;
+}
+
+.ed-bar .right { margin-left: auto; display: flex; gap: 12px; }
+.ed-bar b { color: var(--e-fg); font-weight: 500; letter-spacing: 0.04em; }
+
+/* code body */
+.lines {
+  position: relative;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 22px;
+  padding: 10px 0;
+  overflow-x: auto;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  min-height: 22px;
+  position: relative;
+}
+
+.row > .gutter {
+  flex: 0 0 58px;
+  padding-right: 12px;
+  text-align: right;
+  color: var(--e-muted);
+  font-size: 11px;
+  user-select: none;
+  border-right: 1px solid color-mix(in srgb, var(--e-hairline) 70%, var(--e-bg));
+}
+
+.row > .src {
+  flex: 1;
+  min-width: 0;
+  padding: 0 24px 0 16px;
+  white-space: pre;
+  color: var(--e-fg);
+}
+
+.row.on { background: var(--e-active); }
+.row.on > .gutter { color: var(--e-fg); }
+.row.sel { background: var(--e-sel-bg); }
+.row.sel > .gutter,
+.row.sel > .src,
+.row.sel .src span { color: var(--e-sel-fg); }
+.row.sel > .gutter {
+  border-right-color: color-mix(in srgb, var(--e-sel-fg) 28%, var(--e-sel-bg));
+}
+.row.sel .mk-cursor { background: var(--e-sel-fg); }
+.row.sel .mk-cursor.hollow {
+  background: transparent;
+  outline-color: var(--e-sel-fg);
+}
+.row.add { background: var(--e-add); }
+.row.del { background: var(--e-del); }
+.row.chg { background: var(--e-change); }
+
+.gm {
+  display: inline-block;
+  width: 10px;
+  color: var(--e-muted);
+}
+.gm-add { color: var(--e-string); }
+.gm-del { color: var(--e-keyword); }
+.gm-chg { color: var(--e-type); }
+.gm-e { color: var(--e-error); }
+.gm-w { color: var(--e-warning); }
+.gm-i { color: var(--e-muted); }
+
+/* syntax roles */
+.t-c, .t-d { color: var(--e-comment); }
+.t-d { font-weight: 500; }
+.t-k { color: var(--e-keyword); }
+.t-t { color: var(--e-type); }
+.t-ns { color: var(--e-type); }
+.t-a { color: var(--e-type); }
+.t-s { color: var(--e-string); }
+.t-e { color: var(--e-number); }
+.t-n { color: var(--e-number); }
+.t-f { color: var(--e-fg); font-weight: 500; }
+.t-v { color: var(--e-fg); }
+.t-o, .t-p { color: var(--e-muted); }
+
+.mk-sel { background: var(--e-select); }
+/* Ordinary matches sit one step back: a light wash and a dotted rule, so the
+   current match keeps the full wash, the 2px rule and the box. */
+.mk-find {
+  background: var(--e-search-soft);
+  border-bottom: 1px dotted var(--e-type);
+}
+
+/* Current match: a 2px rule plus a box, so it reads at a glance next to
+   the 1px ordinary matches without adding a new colour. */
+.mk-cur {
+  background: var(--e-search);
+  border-bottom: 2px solid var(--e-type);
+  outline: 1px solid var(--e-type);
+  outline-offset: -1px;
+}
+.mk-err { border-bottom: 1px dotted var(--e-error); }
+.mk-warn { border-bottom: 1px dotted var(--e-warning); }
+.mk-info { border-bottom: 1px dotted var(--e-muted); }
+.mk-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 16px;
+  margin-bottom: -3px;
+  background: var(--e-fg);
+}
+
+.mk-cursor.hollow {
+  background: transparent;
+  outline: 1px solid var(--e-fg);
+  outline-offset: -1px;
+}
+
+/* ---------------------------------------------------------------
+   Helix — a terminal application
+   --------------------------------------------------------------- */
+.term {
+  background: var(--e-bg);
+}
+
+.term-frame {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--e-hairline);
+  background: var(--e-surface);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.term-frame .dots { display: flex; gap: 5px; }
+.term-frame .dots span {
+  display: block;
+  width: 8px; height: 8px;
+  background: var(--e-hairline);
+}
+.term-frame .dots span:first-child { background: var(--e-muted); }
+.term-frame .path { color: var(--e-fg); }
+.term-frame .size { margin-left: auto; }
+
+.bufs {
+  display: flex;
+  background: var(--e-surface);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 11px;
+  overflow-x: auto;
+}
+
+.buf {
+  padding: 6px 13px;
+  color: var(--e-muted);
+  white-space: nowrap;
+  border-right: 1px solid var(--e-hairline);
+  border-top: 2px solid transparent;
+}
+
+.buf.on {
+  background: var(--e-bg);
+  color: var(--e-fg);
+  border-top-color: var(--e-fg);
+}
+
+.buf em {
+  font-style: normal;
+  color: var(--e-keyword);
+  margin-left: 6px;
+}
+
+.statusline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  background: var(--e-surface);
+  border-top: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--e-muted);
+  min-height: 26px;
+}
+
+.statusline .mode {
+  padding: 4px 12px;
+  background: var(--e-fg);
+  color: var(--e-bg);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.statusline .mode.ins { background: var(--e-type); color: var(--e-bg); }
+
+.statusline > span { padding: 4px 11px; border-right: 1px solid var(--e-hairline); white-space: nowrap; }
+.statusline > span b { color: var(--e-fg); font-weight: 500; }
+.statusline .grow { flex: 1; border-right: 0; }
+.statusline .right { margin-left: auto; border-right: 0; }
+
+
+.cmdline {
+  display: flex;
+  gap: 8px;
+  padding: 2px 12px 8px;
+  background: var(--e-surface);
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--e-fg);
+  min-height: 26px;
+}
+
+.cmdline i { font-style: normal; color: var(--e-muted); }
+
+.split-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 3px 12px;
+  background: var(--e-surface);
+  border-top: 1px solid var(--e-hairline);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+/* ---------------------------------------------------------------
+   Zed — a native GUI editor with squared Aporia geometry
+   --------------------------------------------------------------- */
+.zed-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 12px;
+  background: var(--e-surface);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.zed-top .dots { display: flex; gap: 5px; }
+.zed-top .dots span { width: 8px; height: 8px; background: var(--e-hairline); }
+.zed-top .dots span:first-child { background: var(--e-muted); }
+.zed-top .title { color: var(--e-fg); }
+.zed-top .right { margin-left: auto; display: flex; gap: 10px; }
+
+.tabs {
+  display: flex;
+  background: var(--e-surface);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 11px;
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  color: var(--e-muted);
+  white-space: nowrap;
+  border-right: 1px solid var(--e-hairline);
+  border-top: 2px solid transparent;
+}
+
+.tab.on { background: var(--e-bg); color: var(--e-fg); border-top-color: var(--e-fg); }
+.tab em { font-style: normal; color: var(--e-keyword); }
+
+.zed-body {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr) 198px;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+}
+
+.zed-body.solo {
+  grid-template-columns: 168px minmax(0, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.zed-body.solo .dock { grid-row: 1; }
+
+.dock {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  border-right: 1px solid var(--e-hairline);
+  background: var(--e-surface);
+  padding: 8px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  min-width: 0;
+}
+
+.dock h4 {
+  margin: 0 0 6px;
+  padding: 4px 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.dock ul { margin: 0 0 10px; padding: 0; list-style: none; }
+.dock li {
+  display: flex;
+  gap: 6px;
+  padding: 3px 12px;
+  color: var(--e-muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.dock li b { font-weight: 400; color: var(--e-fg); }
+.dock li.on { background: var(--e-select); color: var(--e-fg); }
+.dock li .m { margin-left: auto; color: var(--e-type); }
+.dock li .a { margin-left: auto; color: var(--e-string); }
+
+.diagpane {
+  grid-column: 3;
+  grid-row: 1;
+  border-left: 1px solid var(--e-hairline);
+  background: var(--e-surface);
+  padding: 8px 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  overflow: hidden;
+}
+
+.diagpane h4,
+.term-pane h4 {
+  margin: 0 0 6px;
+  padding: 4px 12px;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.diag {
+  display: flex;
+  gap: 8px;
+  padding: 5px 12px;
+  color: var(--e-fg);
+  line-height: 1.45;
+}
+.diag .lvl {
+  flex: 0 0 12px;
+  height: 12px;
+  margin-top: 2px;
+  border: 1px solid currentColor;
+  font-size: 8px;
+  line-height: 10px;
+  text-align: center;
+}
+.diag.error { color: var(--e-error); }
+.diag.warning { color: var(--e-warning); }
+.diag.info { color: var(--e-muted); }
+.diag p { margin: 0; color: var(--e-fg); font-size: 10.5px; line-height: 1.5; }
+.diag span.ref { display: block; color: var(--e-muted); font-size: 10px; margin-top: 2px; }
+
+.term-pane {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  border-top: 1px solid var(--e-hairline);
+  background: var(--e-bg);
+  padding: 8px 0 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+
+
+.ansi {
+  padding: 0 12px;
+  white-space: pre-wrap;
+  color: var(--e-fg);
+}
+.ansi .dim { color: var(--e-muted); }
+.ansi .ok { color: var(--e-string); }
+.ansi .warn { color: var(--e-warning); }
+.ansi .bad { color: var(--e-error); }
+.ansi .ty { color: var(--e-type); }
+.ansi .kw { color: var(--e-keyword); }
+
+.findbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 14px;
+  background: var(--e-surface);
+  border-bottom: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--e-muted);
+}
+.findbar b { color: var(--e-fg); font-weight: 500; }
+.findbar .grow { flex: 1; }
+
+.crumbs-zed {
+  display: flex;
+  gap: 8px;
+  padding: 5px 14px;
+  border-bottom: 1px solid var(--e-hairline);
+  background: var(--e-bg);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--e-muted);
+}
+.crumbs-zed b { color: var(--e-fg); font-weight: 400; }
+
+.zed-status {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 5px 12px;
+  background: var(--e-surface);
+  border-top: 1px solid var(--e-hairline);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--e-muted);
+}
+.zed-status .mode { color: var(--e-fg); }
+.zed-status .right { margin-left: auto; display: flex; gap: 14px; }
+
+/* completion popover */
+.pane {
+  position: relative;
+  min-width: 0;
+  background: var(--e-bg);
+}
+
+.pop {
+  position: absolute;
+  z-index: 6;
+  width: 232px;
+  background: var(--e-surface);
+  border: 1px solid var(--e-fg);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--e-fg);
+}
+
+.pop-h {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 9px;
+  border-bottom: 1px solid var(--e-hairline);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.pop div {
+  display: flex;
+  gap: 8px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.pop div.on { background: var(--e-select); }
+.pop div em { font-style: normal; color: var(--e-muted); margin-left: auto; font-size: 9.5px; }
+.pop div i { font-style: normal; color: var(--e-type); width: 12px; }
+
+/* ---------------------------------------------------------------
+   Notes, legend, validation
+   --------------------------------------------------------------- */
+.lens {
+  margin-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.lens-h {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 5px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lens-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.lens-row .lvl {
+  flex: 0 0 14px;
+  height: 14px;
+  margin-top: 2px;
+  border: 1px solid currentColor;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  line-height: 12px;
+  text-align: center;
+  color: var(--red);
+}
+
+.lens-row.warning .lvl { color: var(--chestnut); }
+
+.lens-row .ref {
+  flex: 0 0 56px;
+  padding-top: 1px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.lens-row p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--onyx);
+  max-width: 76ch;
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--onyx);
+}
+
+.note .ref {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.note .ref b { color: var(--onyx); font-weight: 500; }
+
+.note p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.note p b { color: var(--onyx); font-weight: 500; }
+
+.band {
+  margin-top: 40px;
+  border-top: 1px solid var(--onyx);
+  padding-bottom: 4px;
+}
+
+.band::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 3px;
+  background: var(--rule-soft);
+}
+
+.band-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0 0;
+}
+
+.band-head h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.band-head span { color: var(--muted); }
+
+.roles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin-top: 10px;
+}
+
+.role {
+  display: grid;
+  grid-column: span 1;
+  grid-template-columns: 16px 1fr 88px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-top: 1px solid var(--rule-soft);
+  font-size: 13px;
+}
+
+/* Nine rows over two columns: let the last one take the full measure. */
+.role:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.role .sw {
+  width: 12px;
+  height: 12px;
+  border: 1px solid color-mix(in srgb, var(--onyx) 45%, transparent);
+  transform: translateY(1px);
+}
+
+.role .nm { color: var(--onyx); }
+.role .hx {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+.role .sc {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.val {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--rule);
+  margin-top: 12px;
+}
+
+.val-cell {
+  padding: 12px 14px 14px;
+  border-right: 1px solid var(--rule);
+}
+.val-cell:last-child { border-right: 0; }
+
+.val-cell .lbl {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.val-cell .num {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 6px;
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.val-cell .num span {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.val-cell p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------
+   Page footer
+   --------------------------------------------------------------- */
+.foot {
+  margin-top: 56px;
+  background: var(--sheet);
+  border-top: 1px solid var(--onyx);
+}
+
+.foot-in {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.foot h3 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.foot p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.foot a { border-bottom: 1px solid var(--rule); }
+.foot a:hover { border-bottom-color: var(--onyx); }
+
+.foot-nav { display: flex; flex-direction: column; gap: 6px; }
+.foot-nav a,
+.foot-nav button {
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.foot-nav span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.foot-nav button:hover { text-decoration: underline; }
+
+.idx-group {
+  margin-top: 18px;
+  padding-top: 6px;
+  border-top: 1px solid var(--onyx);
+}
+
+.idx-group h3 {
+  margin: 0 0 4px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.idx-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 0;
+  text-align: left;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.idx-row .n {
+  flex: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.idx-row .lbl { flex: 0 0 auto; }
+
+.idx-row .lead {
+  flex: 1;
+  min-width: 12px;
+  border-bottom: 1px dotted var(--rule);
+  transform: translateY(-3px);
+}
+
+.idx-row .tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.idx-row:hover .lbl { text-decoration: underline; }
+.idx-row[aria-current="page"] .n { color: var(--onyx); }
+
+.rec-h {
+  margin: 20px 0 6px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.rec-p {
+  margin: 0 0 10px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 58ch;
+}
+.rec-p b { color: var(--onyx); font-weight: 500; }
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  margin: 6px 0 4px;
+}
+
+.tbl th {
+  padding: 6px 8px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--onyx);
+  white-space: nowrap;
+}
+
+.tbl td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.tbl td.m,
+.tbl th.m { font-family: var(--mono); font-size: 10.5px; }
+.tbl td.sw { width: 26px; }
+.tbl td.sw i {
+  display: block;
+  width: 12px; height: 12px;
+  border: 1px solid color-mix(in srgb, var(--onyx) 40%, transparent);
+  margin-top: 2px;
+}
+.tbl .dim { color: var(--muted); }
+.tbl .pass { color: var(--onyx); }
+.tbl .fail { color: var(--red); }
+.tbl .pending { color: var(--muted); }
+
+.rec-list { margin: 6px 0 0; padding: 0; list-style: none; }
+.rec-list li {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.rec-list li b { color: var(--onyx); font-weight: 500; display: block; }
+.rec-list .k {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding-top: 2px;
+}
+
+pre.snip {
+  margin: 8px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  background: var(--sheet);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: var(--onyx);
+}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+@media (max-width: 1020px) {
+  .phead-grid { grid-template-columns: 56px minmax(0, 1fr); }
+  .matrix { grid-column: 2; text-align: left; margin-top: 14px; }
+  .ghost { display: none; }
+  .lens {
+  margin-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.lens-h {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 5px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lens-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.lens-row .lvl {
+  flex: 0 0 14px;
+  height: 14px;
+  margin-top: 2px;
+  border: 1px solid currentColor;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  line-height: 12px;
+  text-align: center;
+  color: var(--red);
+}
+
+.lens-row.warning .lvl { color: var(--chestnut); }
+
+.lens-row .ref {
+  flex: 0 0 56px;
+  padding-top: 1px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.lens-row p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--onyx);
+  max-width: 76ch;
+}
+
+.notes { grid-template-columns: 1fr; gap: 16px; }
+  .notes .note + .note { border-top: 1px solid var(--rule-soft); padding-top: 12px; }
+  .zed-body { grid-template-columns: 156px minmax(0, 1fr) 196px; }
+  .foot-in { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 820px) {
+  :root { --pad: 20px; }
+  .topbar-sub { display: none; }
+  .controlbar-in { gap: 6px 12px; }
+  .crumbs { display: none; }
+  .groups { margin-left: 0; }
+  .roles { grid-template-columns: 1fr; }
+  .val { grid-template-columns: 1fr; }
+  .val-cell { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .val-cell:last-child { border-bottom: 0; }
+  .zed-body { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
+  .dock, .diagpane { display: none; }
+  .term-pane { grid-column: 1; grid-row: 3; }
+  .zed-top .right { display: none; }
+  .foot-in { grid-template-columns: 1fr; }
+  .lines { font-size: 12px; line-height: 20px; }
+  .row { min-height: 20px; }
+  .row > .gutter { flex-basis: 44px; font-size: 10px; padding-right: 8px; }
+  .row > .src { padding: 0 14px 0 12px; }
+  .pop { width: 190px; font-size: 10.5px; }
+}
+
+@media (max-width: 560px) {
+  .phead { padding-top: 32px; }
+  .phead-grid { grid-template-columns: 44px minmax(0, 1fr); gap: 12px; }
+  .folio { font-size: 20px; }
+  .star { width: 16px; height: 16px; }
+  .phead h1 { font-size: clamp(34px, 12vw, 52px); }
+  .lede { font-size: 15px; }
+  .plate-head { flex-wrap: wrap; font-size: 9px; }
+  .plate-head .right { width: 100%; justify-content: space-between; margin-left: 0; }
+  .roles { gap: 0; }
+  .role { grid-template-columns: 16px 1fr; row-gap: 2px; }
+  .role .hx, .role .sc { grid-column: 2; }
+  .statusline .hide-s { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ---------------------------------------------------------------
+   Static navigation: index disclosure, record, cross-links
+   --------------------------------------------------------------- */
+.tbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seg {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.idxbar {
+  position: relative;
+  margin-left: 4px;
+}
+
+.idxbar summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.idxbar summary::-webkit-details-marker { display: none; }
+
+.idxbar[open] summary {
+  border-bottom-color: var(--onyx);
+}
+
+.idxpanel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  width: min(600px, calc(100vw - 2 * var(--pad)));
+  max-height: 72vh;
+  overflow-y: auto;
+  background: var(--bone);
+  border: 1px solid var(--onyx);
+  padding: 14px 20px 22px;
+  box-shadow: none;
+}
+
+.idxpanel-in { columns: 1; }
+
+.idxnote {
+  margin: 0 0 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.record {
+  margin-top: 0;
+  border-top: 1px solid var(--onyx);
+  background: var(--bone);
+}
+
+.record summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px var(--pad);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.record summary::-webkit-details-marker { display: none; }
+
+.record summary .mono {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--onyx);
+}
+
+.rec-sum {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.record[open] summary { border-bottom: 1px solid var(--rule); }
+
+.rec-body {
+  padding-top: 8px;
+  padding-bottom: 32px;
+  max-width: 1180px;
+}
+
+.rec-sub {
+  margin: 20px 0 4px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--onyx);
+}
+
+.rec-body .tbl { max-width: 100%; }
+
+@media (max-width: 820px) {
+  .idxpanel {
+    right: auto;
+    left: calc(var(--pad) * -1);
+    width: calc(100vw - 2 * var(--pad));
+  }
+  .record summary { flex-wrap: wrap; gap: 4px 12px; }
+}
+
+/* Marks that land inside a reverse-video selection must invert with it:
+   the page-level search and diagnostic fills are built for the canvas, not
+   for the block, so inside a selection they collapse to rules. */
+.row.sel .mk-find {
+  background: transparent;
+  border-bottom: 1px solid currentColor;
+}
+
+.row.sel .src span.mk-cur {
+  background: var(--e-sel-fg);
+  color: var(--e-sel-bg);
+  border-bottom: 0;
+  outline: 0;
+}
+
+.row.sel .mk-err,
+.row.sel .mk-warn,
+.row.sel .mk-info { border-bottom-color: currentColor; }
+
+/* Diff rows are tinted too: marks there are rules, never a second fill. */
+.row.add .mk-find,
+.row.del .mk-find,
+.row.chg .mk-find {
+  background: transparent;
+  border-bottom: 1px solid currentColor;
+}
+
+.row.add .mk-cur,
+.row.del .mk-cur,
+.row.chg .mk-cur {
+  background: transparent;
+  border-bottom: 2px solid currentColor;
+  outline: 1px solid currentColor;
+  outline-offset: -1px;
+}
+
+/* Helix mode blocks. Word first, fill second — never colour alone. */
+.statusline .mode.sel { background: var(--e-string); color: var(--e-bg); }
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 12px;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+
+.mode-cell { background: var(--bone); padding: 10px 12px 12px; }
+
+.mode-cell .tag {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.mode-cell .lbl {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mode-cell .hex {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--onyx);
+}
+
+@media (max-width: 560px) {
+  .modes { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+<div class="shell"><header class="topbar"><div class="wrap topbar-in"><a class="brand" href="lacuna-themes.html">Aporia <i aria-hidden="true"></i> <em>Lacuna</em></a><span class="topbar-sub">Paper + Ink · editors and terminals</span><div class="topbar-actions"><details class="idxbar"><summary class="tbtn">Index · 24</summary><div class="idxpanel"><div class="idxpanel-in"><p class="idxnote">24 pages · 3 languages × 2 editions × 2 hosts × 2 presentations. Every row is a file; no page is generated on demand.</p><div class="idx-group"><h3>Helix / Paper — light</h3><a class="idx-row" href="lacuna-themes.html"><span class="n">01</span><span class="lbl">Rust · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-paper-rust-work.html"><span class="n">02</span><span class="lbl">Rust · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="helix-paper-typescript-specimen.html"><span class="n">03</span><span class="lbl">TypeScript · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-paper-typescript-work.html"><span class="n">04</span><span class="lbl">TypeScript · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="helix-paper-go-specimen.html"><span class="n">05</span><span class="lbl">Go · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-paper-go-work.html"><span class="n">06</span><span class="lbl">Go · Working environment</span><span class="lead"></span><span class="tag">Session</span></a></div><div class="idx-group"><h3>Helix / Ink — dark</h3><a class="idx-row" href="helix-ink-rust-specimen.html"><span class="n">07</span><span class="lbl">Rust · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-ink-rust-work.html"><span class="n">08</span><span class="lbl">Rust · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="helix-ink-typescript-specimen.html"><span class="n">09</span><span class="lbl">TypeScript · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-ink-typescript-work.html" aria-current="page"><span class="n">10</span><span class="lbl">TypeScript · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="helix-ink-go-specimen.html"><span class="n">11</span><span class="lbl">Go · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="helix-ink-go-work.html"><span class="n">12</span><span class="lbl">Go · Working environment</span><span class="lead"></span><span class="tag">Session</span></a></div><div class="idx-group"><h3>Zed / Paper — light</h3><a class="idx-row" href="zed-paper-rust-specimen.html"><span class="n">13</span><span class="lbl">Rust · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-paper-rust-work.html"><span class="n">14</span><span class="lbl">Rust · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="zed-paper-typescript-specimen.html"><span class="n">15</span><span class="lbl">TypeScript · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-paper-typescript-work.html"><span class="n">16</span><span class="lbl">TypeScript · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="zed-paper-go-specimen.html"><span class="n">17</span><span class="lbl">Go · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-paper-go-work.html"><span class="n">18</span><span class="lbl">Go · Working environment</span><span class="lead"></span><span class="tag">Session</span></a></div><div class="idx-group"><h3>Zed / Ink — dark</h3><a class="idx-row" href="zed-ink-rust-specimen.html"><span class="n">19</span><span class="lbl">Rust · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-ink-rust-work.html"><span class="n">20</span><span class="lbl">Rust · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="zed-ink-typescript-specimen.html"><span class="n">21</span><span class="lbl">TypeScript · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-ink-typescript-work.html"><span class="n">22</span><span class="lbl">TypeScript · Working environment</span><span class="lead"></span><span class="tag">Session</span></a><a class="idx-row" href="zed-ink-go-specimen.html"><span class="n">23</span><span class="lbl">Go · Code specimen</span><span class="lead"></span><span class="tag">Fig</span></a><a class="idx-row" href="zed-ink-go-work.html"><span class="n">24</span><span class="lbl">Go · Working environment</span><span class="lead"></span><span class="tag">Session</span></a></div></div></div></details><a class="tbtn" href="#record">Record ↓</a></div></div></header><nav class="controlbar" aria-label="Compare pages"><div class="wrap controlbar-in"><span class="crumbs">Aporia <b>/</b> Lacuna <b>/</b> Helix <b>/</b> Ink <b>/</b> TypeScript</span><div class="groups"><div class="group"><span>Host</span><a class="seg" href="helix-ink-typescript-work.html" aria-current="page">Helix</a><a class="seg" href="zed-ink-typescript-work.html">Zed</a></div><div class="group"><span>Edition</span><a class="seg" href="helix-paper-typescript-work.html">Paper</a><a class="seg" href="helix-ink-typescript-work.html" aria-current="page">Ink</a></div><div class="group"><span>Language</span><a class="seg" href="helix-ink-rust-work.html">RUST</a><a class="seg" href="helix-ink-typescript-work.html" aria-current="page">TS</a><a class="seg" href="helix-ink-go-work.html">GO</a></div><div class="group"><span>View</span><a class="seg" href="helix-ink-typescript-specimen.html">Specimen</a><a class="seg" href="helix-ink-typescript-work.html" aria-current="page">Working</a></div></div></div></nav><main><article class="page" data-od-id="page-helix-ink-typescript-work"><div class="wrap"><header class="phead" data-od-id="head-helix-ink-typescript-work"><span class="ghost" aria-hidden="true">10</span><div class="phead-grid"><div class="folio">10<svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.6 7.7 8.1.3-6.4 4.8 2.3 7.8L12 17.4 5.4 22.1l2.3-7.8L1.3 9.5l8.1-.3z" fill="currentColor"/></svg></div><div><p class="kicker">Working environment · Helix · Ink</p><h1>TypeScript<small>Helix / Ink / 10 of 24</small></h1><p class="lede">The compiler mid-edit: one type error, one unused binding, a completion menu over the edition union, and the `failures` search held open. Ink raises the red to #d87975 on coal and re-decides every surface rather than inverting Paper.</p></div><p class="matrix"><b>HELIX</b><br><span class="dim">INK</span><br><span class="dim">WORKING ENVIRONMENT</span><br><span class="dim">10 / 24</span></p></div></header><section class="plate" data-od-id="plate-helix-ink-typescript-work"><div class="plate-head"><span class="fig">Fig. 10</span><span class="file">theme/compile.ts</span><span class="right"><span>100 lines</span><span class="prov pending">Illustrative</span></span></div><div class="ed term" data-edition="ink"><div class="term-frame"><span class="dots"><span></span><span></span><span></span></span><span class="path">alacritty — hx</span><span>118 × 38</span><span class="size">truecolor</span></div><div class="bufs"><div class="buf on">theme/compile.ts</div><div class="buf">theme/src/paper.rs</div><div class="buf">Cargo.toml</div><div class="buf">+</div></div><div class="lines"><div class="row"><span class="gutter">8</span><span class="src"><span class="t-k">const</span> <span class="t-t">REQUIRED</span><span class="t-p">:</span> <span class="t-k">readonly</span> <span class="t-t">Role</span><span class="t-p">[]</span> <span class="t-o">=</span> <span class="t-p">[</span></span></div><div class="row"><span class="gutter">7</span><span class="src">  <span class="t-s">"background"</span><span class="t-p">,</span> <span class="t-s">"foreground"</span><span class="t-p">,</span> <span class="t-s">"keyword"</span><span class="t-p">,</span> <span class="t-s">"string"</span><span class="t-p">,</span> <span class="t-s">"number"</span><span class="t-p">,</span> <span class="t-s">"comment"</span><span class="t-p">,</span></span></div><div class="row"><span class="gutter">6</span><span class="src"><span class="t-p">];</span></span></div><div class="row"><span class="gutter">5</span><span class="src"></span></div><div class="row"><span class="gutter">4</span><span class="src"><span class="t-k">export</span> <span class="t-k">async</span> <span class="t-k">function</span> <span class="t-f">compile</span><span class="t-p">(</span><span class="t-v">source</span><span class="t-p">:</span> <span class="t-t">Source</span><span class="t-p">,</span> <span class="t-v">edition</span><span class="t-p">:</span> <span class="t-t">Edition</span><span class="t-p">):</span> <span class="t-t">Promise</span><span class="t-o">&lt;</span><span class="t-t">Result</span><span class="t-o">&lt;</span><span class="t-t">Compiled</span><span class="t-o">&gt;&gt;</span> <span class="t-p">{</span></span></div><div class="row has-err"><span class="gutter"><span class="gm gm-e">E</span>3</span><span class="src">  <span class="t-k">const</span> <span class="t-v">rules</span> <span class="t-o">=</span> <span class="t-v mk-err">source</span><span class="t-p mk-err">.</span><span class="t-v mk-err">kind</span> <span class="t-o">===</span> <span class="t-s">"inline"</span></span></div><div class="row"><span class="gutter">2</span><span class="src">    <span class="t-o">?</span> <span class="t-v">source</span><span class="t-p">.</span><span class="t-v">rules</span></span></div><div class="row"><span class="gutter">1</span><span class="src">    <span class="t-p">:</span> <span class="t-k">await</span> <span class="t-f">parse</span><span class="t-p">(</span><span class="t-k">await</span> <span class="t-f">readFile</span><span class="t-p">(</span><span class="t-v">source</span><span class="t-p">.</span><span class="t-v">path</span><span class="t-p">,</span> <span class="t-s">"utf8"</span><span class="t-p">));</span></span></div><div class="row on"><span class="gutter">50</span><span class="src">  <span class="t-k">const</span> <span class="t-v mk-find">failures</span><span class="t-p">:</span> <span class="t-t">Failure</span><span class="t-p">[]</span> <span class="t-o">=</span> <span class="t-p">[];</span></span></div><div class="row"><span class="gutter">1</span><span class="src">  <span class="t-k">const</span> <span class="t-v">resolved</span> <span class="t-o">=</span> <span class="t-k">new</span> <span class="t-t">Map</span><span class="t-o">&lt;</span><span class="t-t">Role</span><span class="t-p">,</span> <span class="t-t">string</span><span class="t-o">&gt;</span><span class="t-p">();</span></span></div><div class="row"><span class="gutter">2</span><span class="src"></span></div><div class="row"><span class="gutter">3</span><span class="src">  <span class="t-k">for</span> <span class="t-p">(</span><span class="t-k">const</span> <span class="t-v">rule</span> <span class="t-k">of</span> <span class="t-v">rules</span><span class="t-p">)</span> <span class="t-p">{</span></span></div><div class="row"><span class="gutter">4</span><span class="src">    <span class="t-k">const</span> <span class="t-v">value</span> <span class="t-o">=</span> <span class="t-v">edition</span> <span class="t-o">===</span> <span class="t-s">"paper"</span> <span class="t-o">?</span> <span class="t-v">rule</span><span class="t-p">.</span><span class="t-v">paper</span> <span class="t-p">:</span> <span class="t-v">rule</span><span class="t-p">.</span><span class="t-v">ink</span><span class="t-p">;</span></span></div><div class="row sel"><span class="gutter">5</span><span class="src">    <span class="t-k">if</span> <span class="t-p">(</span><span class="t-o">!/^</span><span class="t-a">#[0-9a-f]</span><span class="t-p">{</span><span class="t-n">6</span><span class="t-p">}</span><span class="t-v">$</span><span class="t-o">/</span><span class="t-v">i</span><span class="t-p">.</span><span class="t-f">test</span><span class="t-p">(</span><span class="t-v">value</span><span class="t-p">))</span> <span class="t-p">{</span></span></div><div class="row sel"><span class="gutter">6</span><span class="src">      <span class="t-v mk-cur">failures</span><span class="t-p">.</span><span class="t-f">push</span><span class="t-p">({</span><span class="mk-cursor"></span></span></div><div class="row"><span class="gutter">7</span><span class="src">        <span class="t-v">code</span><span class="t-p">:</span> <span class="t-s">"MALFORMED"</span><span class="t-p">,</span></span></div><div class="row"><span class="gutter">8</span><span class="src">        <span class="t-v">role</span><span class="t-p">:</span> <span class="t-v">rule</span><span class="t-p">.</span><span class="t-v">role</span><span class="t-p">,</span></span></div><div class="row"><span class="gutter">9</span><span class="src">        <span class="t-v">message</span><span class="t-p">:</span> <span class="t-s">`</span><span class="t-e">${rule.role}</span><span class="t-s"> is not a hex colour: </span><span class="t-e">${value}</span><span class="t-s">`</span><span class="t-p">,</span></span></div><div class="row"><span class="gutter">10</span><span class="src">      <span class="t-p">});</span></span></div><div class="row"><span class="gutter">11</span><span class="src">      <span class="t-k">continue</span><span class="t-p">;</span><span class="mk-cursor hollow"></span></span></div><div class="row"><span class="gutter">12</span><span class="src">    <span class="t-p">}</span></span></div><div class="row"><span class="gutter">13</span><span class="src">    <span class="t-k">if</span> <span class="t-p">(</span><span class="t-v">resolved</span><span class="t-p">.</span><span class="t-f">has</span><span class="t-p">(</span><span class="t-v">rule</span><span class="t-p">.</span><span class="t-v">role</span><span class="t-p">))</span> <span class="t-p">{</span></span></div></div><div class="split-line">hsplit · git diff --staged · pane 2/2 · focus stays in pane 1</div><div class="lines"><div class="row"><span class="gutter">30</span><span class="src"><span class="t-p">}</span></span></div><div class="row"><span class="gutter">31</span><span class="src"></span></div><div class="row"><span class="gutter">32</span><span class="src"><span class="t-k">export</span> <span class="t-k">type</span> <span class="t-t">Failure</span> <span class="t-o">=</span> <span class="t-p">{</span></span></div><div class="row chg"><span class="gutter"><span class="gm gm-chg">~</span>33</span><span class="src">  <span class="t-v">code</span><span class="t-p">:</span> <span class="t-s">"MALFORMED"</span> <span class="t-o">|</span> <span class="t-s">"DUPLICATE"</span> <span class="t-o">|</span> <span class="t-s">"MISSING"</span><span class="t-p">;</span></span></div><div class="row del"><span class="gutter"><span class="gm gm-del">−</span>34</span><span class="src">  <span class="t-v">role</span><span class="t-p">:</span> <span class="t-t">Role</span><span class="t-p">;</span></span></div><div class="row add"><span class="gutter"><span class="gm gm-add">+</span>35</span><span class="src">  <span class="t-v">message</span><span class="t-p">:</span> <span class="t-t">string</span><span class="t-p">;</span></span></div><div class="row"><span class="gutter">36</span><span class="src"><span class="t-p">};</span></span></div><div class="row"><span class="gutter">37</span><span class="src"></span></div><div class="row"><span class="gutter">38</span><span class="src"><span class="t-k">export</span> <span class="t-k">type</span> <span class="t-t">Result</span><span class="t-o">&lt;</span><span class="t-t">T</span><span class="t-o">&gt;</span> <span class="t-o">=</span></span></div><div class="row"><span class="gutter">39</span><span class="src">  <span class="t-o">|</span> <span class="t-p">{</span> <span class="t-v">ok</span><span class="t-p">:</span> <span class="t-k">true</span><span class="t-p">;</span> <span class="t-v">value</span><span class="t-p">:</span> <span class="t-t">T</span> <span class="t-p">}</span></span></div><div class="row add"><span class="gutter"><span class="gm gm-add">+</span>40</span><span class="src">  <span class="t-o">|</span> <span class="t-p">{</span> <span class="t-v">ok</span><span class="t-p">:</span> <span class="t-k">false</span><span class="t-p">;</span> <span class="t-v mk-find">failures</span><span class="t-p">:</span> <span class="t-k">readonly</span> <span class="t-t">Failure</span><span class="t-p">[]</span> <span class="t-p">};</span></span></div><div class="row"><span class="gutter">41</span><span class="src"></span></div></div><div class="statusline"><span class="mode sel">VIS</span><span><b>theme/compile.ts</b></span><span class="hide-s">2 cursors</span><span class="hide-s">typescript-language-server</span><span class="grow"></span><span>2 diagnostics</span><span>13:24</span><span>74%</span></div><div class="cmdline"><i>/</i>failures<span class="mk-cursor"></span></div></div></section><p class="cap"><span>Session states: active line, selection, search, diagnostics, staged diff, completion. All overlays are staged for this plate.</span><span>Host rendering is illustrative · terminal emulator and truecolor affect the result</span></p><div class="notes"><div class="note"><span class="ref">L47 · state</span><p>The type error is fairly placed: the union is narrowed after this line, so the compiler is right to complain here.</p></div><div class="note"><span class="ref">L54 · state</span><p>A completion list over the edition union. The menu uses the same two paper tones as the status line.</p></div><div class="note"><span class="ref">L34 · state</span><p>The changed line keeps its template-literal colouring; the diff wash sits underneath, not on top.</p></div></div><section class="band" data-od-id="roles-helix-ink-typescript-work"><div class="band-head"><h2>Role map — Ink</h2><span>Helix capture</span></div><div class="roles"><div class="role"><span class="sw" style="background:#1D2732"></span><span class="nm">Selection</span><span class="hx">#1D2732</span><span class="sc">ui.selection</span></div><div class="role"><span class="sw" style="background:#1E2120"></span><span class="nm">Active line</span><span class="hx">editor.line-active</span><span class="sc">ui.cursorline.primary</span></div><div class="role"><span class="sw" style="background:#362913"></span><span class="nm">Search match</span><span class="hx">editor.search-match</span><span class="sc">not exposed — falls back to ui.selection</span></div><div class="role"><span class="sw" style="background:#362913"></span><span class="nm">Current match</span><span class="hx">editor.search-match</span><span class="sc">not exposed — drawn with ui.selection</span></div><div class="role"><span class="sw" style="background:#1C2B1F"></span><span class="nm">Diff add / remove</span><span class="hx">diff surface + sign</span><span class="sc">diff.plus / diff.minus</span></div><div class="role"><span class="sw" style="background:#D87975"></span><span class="nm">Diagnostics</span><span class="hx">#D87975</span><span class="sc">diagnostic.error / warning / info</span></div><div class="role"><span class="sw" style="background:#8E9588"></span><span class="nm">Muted text</span><span class="hx">#8E9588</span><span class="sc">ui.text.inactive</span></div><div class="role"><span class="sw" style="background:#252826"></span><span class="nm">Surface / chrome</span><span class="hx">#252826</span><span class="sc">ui.statusline</span></div><div class="role"><span class="sw" style="background:#EDE4D3"></span><span class="nm">Foreground</span><span class="hx">#EDE4D3</span><span class="sc">ui.text</span></div></div><div class="modes" data-od-id="modes-helix-ink-typescript-work"><div class="mode-cell"><span class="tag" style="background:#EDE4D3;color:#191B1A">NOR</span><span class="lbl">Normal mode</span><span class="hex">#EDE4D3</span></div><div class="mode-cell"><span class="tag" style="background:#C19B62;color:#191B1A">INS</span><span class="lbl">Insert mode</span><span class="hex">#C19B62</span></div><div class="mode-cell"><span class="tag" style="background:#9BAF98;color:#191B1A">VIS</span><span class="lbl">Visual mode</span><span class="hex">#9BAF98</span></div></div></section><section class="band" data-od-id="validation-helix-ink-typescript-work"><div class="band-head"><h2>Contrast — this page</h2><span>Calculated, not host-tested</span></div><div class="val"><div class="val-cell"><span class="lbl"><span>Editor text</span><span>PASS</span></span><span class="num">13.72 <span>:1 · min 4.5</span></span><p>Canonical foreground against this surface.</p></div><div class="val-cell"><span class="lbl"><span>Selected text</span><span>PASS</span></span><span class="num">11.98 <span>:1 · min 4.5</span></span><p>Normal text on the canonical editor.selection surface.</p></div><div class="val-cell"><span class="lbl"><span>Keyword on current match</span><span>PASS</span></span><span class="num">4.66 <span>:1 · min 4.5</span></span><p>Measured on resolved canonical color tokens.</p></div></div></section></div></article></main><details class="record" id="record"><summary><span class="mono">Shared record</span><span class="rec-sum">Role map · host adapters · contrast · open items · handoff</span></summary><div class="wrap rec-body"><h2 class="rec-h">Role map</h2><p class="rec-p">One row per semantic role. <b>Paper</b> and <b>Ink</b> resolve the same role differently; the host column is the key each adapter writes. Provenance: <b>taken</b> from the supplied sites, <b>adjusted</b> where a reference value failed a measured floor, <b>derived</b> by reusing an existing role.</p><table class="tbl"><thead><tr><th>Role</th><th class="m">Paper</th><th class="m">Ink</th><th class="m">Helix / Zed</th><th>Prov.</th></tr></thead><tbody><tr><td>Background</td><td class="m sw"><i style="background:#EDE4D3"></i><span>#EDE4D3</span></td><td class="m sw"><i style="background:#191B1A"></i><span>#191B1A</span></td><td class="m dim">ui.background<br>background</td><td class="dim">taken</td></tr><tr><td>Surface / chrome</td><td class="m sw"><i style="background:#E0D8C8"></i><span>#E0D8C8</span></td><td class="m sw"><i style="background:#252826"></i><span>#252826</span></td><td class="m dim">ui.statusline<br>status_bar.background</td><td class="dim">taken</td></tr><tr><td>Foreground</td><td class="m sw"><i style="background:#0D0D0D"></i><span>#0D0D0D</span></td><td class="m sw"><i style="background:#EDE4D3"></i><span>#EDE4D3</span></td><td class="m dim">ui.text<br>text</td><td class="dim">taken</td></tr><tr><td>Muted text</td><td class="m sw"><i style="background:#615D54"></i><span>#615D54</span></td><td class="m sw"><i style="background:#8E9588"></i><span>#8E9588</span></td><td class="m dim">ui.text.inactive<br>text.muted</td><td class="dim">taken</td></tr><tr><td>Comment</td><td class="m sw"><i style="background:#615D54"></i><span>#615D54</span></td><td class="m sw"><i style="background:#8E9588"></i><span>#8E9588</span></td><td class="m dim">comment<br>syntax.comment</td><td class="dim">adjusted</td></tr><tr><td>Doc comment</td><td class="m sw"><i style="background:#615D54"></i><span>#615D54</span></td><td class="m sw"><i style="background:#8E9588"></i><span>#8E9588</span></td><td class="m dim">comment.documentation<br>syntax.comment.doc</td><td class="dim">derived</td></tr><tr><td>Keyword</td><td class="m sw"><i style="background:#B01E28"></i><span>#B01E28</span></td><td class="m sw"><i style="background:#D87975"></i><span>#D87975</span></td><td class="m dim">keyword<br>syntax.keyword</td><td class="dim">taken</td></tr><tr><td>Control flow</td><td class="m sw"><i style="background:#B01E28"></i><span>#B01E28</span></td><td class="m sw"><i style="background:#D87975"></i><span>#D87975</span></td><td class="m dim">keyword.control<br>syntax.keyword</td><td class="dim">derived</td></tr><tr><td>Type</td><td class="m sw"><i style="background:#79551F"></i><span>#79551F</span></td><td class="m sw"><i style="background:#C19B62"></i><span>#C19B62</span></td><td class="m dim">type<br>syntax.type</td><td class="dim">taken</td></tr><tr><td>Namespace / module</td><td class="m sw"><i style="background:#79551F"></i><span>#79551F</span></td><td class="m sw"><i style="background:#C19B62"></i><span>#C19B62</span></td><td class="m dim">namespace<br>syntax.type</td><td class="dim">derived</td></tr><tr><td>Function / method</td><td class="m sw"><i style="background:#343A35"></i><span>#343A35</span></td><td class="m sw"><i style="background:#D2C7AE"></i><span>#D2C7AE</span></td><td class="m dim">function<br>syntax.function</td><td class="dim">derived</td></tr><tr><td>Parameter / property</td><td class="m sw"><i style="background:#0D0D0D"></i><span>#0D0D0D</span></td><td class="m sw"><i style="background:#EDE4D3"></i><span>#EDE4D3</span></td><td class="m dim">variable.parameter<br>syntax.variable</td><td class="dim">derived</td></tr><tr><td>String</td><td class="m sw"><i style="background:#426247"></i><span>#426247</span></td><td class="m sw"><i style="background:#9BAF98"></i><span>#9BAF98</span></td><td class="m dim">string<br>syntax.string</td><td class="dim">taken</td></tr><tr><td>Escape / format arg</td><td class="m sw"><i style="background:#8B3A2E"></i><span>#8B3A2E</span></td><td class="m sw"><i style="background:#D1A17D"></i><span>#D1A17D</span></td><td class="m dim">string.escape<br>syntax.string.escape</td><td class="dim">derived</td></tr><tr><td>Number</td><td class="m sw"><i style="background:#8B3A2E"></i><span>#8B3A2E</span></td><td class="m sw"><i style="background:#D1A17D"></i><span>#D1A17D</span></td><td class="m dim">constant.numeric<br>syntax.number</td><td class="dim">taken</td></tr><tr><td>Constant / boolean</td><td class="m sw"><i style="background:#8B3A2E"></i><span>#8B3A2E</span></td><td class="m sw"><i style="background:#D1A17D"></i><span>#D1A17D</span></td><td class="m dim">constant<br>syntax.boolean</td><td class="dim">derived</td></tr><tr><td>Operator</td><td class="m sw"><i style="background:#3A3A36"></i><span>#3A3A36</span></td><td class="m sw"><i style="background:#A9A394"></i><span>#A9A394</span></td><td class="m dim">operator<br>syntax.operator</td><td class="dim">derived</td></tr><tr><td>Punctuation</td><td class="m sw"><i style="background:#3A3A36"></i><span>#3A3A36</span></td><td class="m sw"><i style="background:#A9A394"></i><span>#A9A394</span></td><td class="m dim">punctuation<br>syntax.punctuation</td><td class="dim">derived</td></tr><tr><td>Attribute / macro</td><td class="m sw"><i style="background:#79551F"></i><span>#79551F</span></td><td class="m sw"><i style="background:#C19B62"></i><span>#C19B62</span></td><td class="m dim">attribute<br>syntax.attribute</td><td class="dim">derived</td></tr><tr><td>Selection</td><td class="m sw"><i style="background:#CCDDEE"></i><span>#CCDDEE</span></td><td class="m sw"><i style="background:#1D2732"></i><span>#1D2732</span></td><td class="m dim">ui.selection<br>element.selected</td><td class="dim">derived</td></tr><tr><td>Current match</td><td class="m sw"><i style="background:#EAD9B6"></i><span>#EAD9B6</span></td><td class="m sw"><i style="background:#362913"></i><span>#362913</span></td><td class="m dim">not exposed — drawn with ui.selection<br>search.active_match_background</td><td class="dim">derived</td></tr><tr><td>Active line</td><td class="m sw"><i style="background:#E3DBCC"></i><span>#E3DBCC</span></td><td class="m sw"><i style="background:#1E2120"></i><span>#1E2120</span></td><td class="m dim">ui.cursorline.primary<br>editor.highlighted_line.background</td><td class="dim">derived</td></tr><tr><td>Search match</td><td class="m sw"><i style="background:#EAD9B6"></i><span>#EAD9B6</span></td><td class="m sw"><i style="background:#362913"></i><span>#362913</span></td><td class="m dim">not exposed — falls back to ui.selection<br>search.match_background</td><td class="dim">derived</td></tr><tr><td>Diff add / remove</td><td class="m sw"><i style="background:#CBE2CF"></i><span>#CBE2CF</span></td><td class="m sw"><i style="background:#1C2B1F"></i><span>#1C2B1F</span></td><td class="m dim">diff.plus / diff.minus<br>diff.plus / diff.minus</td><td class="dim">derived</td></tr><tr><td>Diagnostics</td><td class="m sw"><i style="background:#B01E28"></i><span>red / chestnut / muted</span></td><td class="m sw"><i style="background:#D87975"></i><span>red / ochre / muted</span></td><td class="m dim">diagnostic.error / warning / info<br>error / warning / info</td><td class="dim">taken</td></tr></tbody></table><h3 class="rec-sub">Canonical editor surfaces</h3><p class="rec-p">Selection, search and diffs resolve directly from Aporia semantic tokens. The HTML and editor themes are generated from the same roles; host rendering may differ.</p><table class="tbl"><thead><tr><th>Surface</th><th class="m">Paper</th><th class="m">Ink</th><th class="m">Source token</th></tr></thead><tbody><tr><td>selection</td><td class="m sw"><i style="background:#CCDDEE"></i>#CCDDEE</td><td class="m sw"><i style="background:#1D2732"></i>#1D2732</td><td class="m dim">editor.selection</td></tr><tr><td>active-line</td><td class="m sw"><i style="background:#E3DBCC"></i>#E3DBCC</td><td class="m sw"><i style="background:#1E2120"></i>#1E2120</td><td class="m dim">editor.line-active</td></tr><tr><td>search</td><td class="m sw"><i style="background:#EAD9B6"></i>#EAD9B6</td><td class="m sw"><i style="background:#362913"></i>#362913</td><td class="m dim">editor.search-match</td></tr><tr><td>search-soft</td><td class="m sw"><i style="background:#EAD9B6"></i>#EAD9B6</td><td class="m sw"><i style="background:#362913"></i>#362913</td><td class="m dim">editor.search-match</td></tr><tr><td>diff-add</td><td class="m sw"><i style="background:#CBE2CF"></i>#CBE2CF</td><td class="m sw"><i style="background:#1C2B1F"></i>#1C2B1F</td><td class="m dim">editor.diff-added</td></tr><tr><td>diff-remove</td><td class="m sw"><i style="background:#F0D5D2"></i>#F0D5D2</td><td class="m sw"><i style="background:#331D1B"></i>#331D1B</td><td class="m dim">editor.diff-removed</td></tr><tr><td>diff-change</td><td class="m sw"><i style="background:#DFD7C6"></i>#DFD7C6</td><td class="m sw"><i style="background:#2B2F2D"></i>#2B2F2D</td><td class="m dim">interactive.hover</td></tr></tbody></table><h2 class="rec-h">Host adapters</h2><h3 class="rec-sub">Helix</h3><p class="rec-p">~/.config/helix/themes/lacuna-paper.toml and lacuna-ink.toml. Select with `theme = "lacuna-ink"` in config.toml.</p><p class="rec-p">A flat TOML table of scopes. `[palette]` may hold reusable names; every other key is a capture or UI role.</p><table class="tbl"><tbody><tr><td class="m" style="width:34%">Colour values</td><td class="dim">[palette] bone = "#ede4d3" — referenced as bone elsewhere in the file</td></tr><tr><td class="m" style="width:34%">Document surface</td><td class="dim">ui.background / ui.text / ui.text.inactive</td></tr><tr><td class="m" style="width:34%">Syntax</td><td class="dim">keyword, keyword.control, type, string, constant.numeric, function, comment</td></tr><tr><td class="m" style="width:34%">Selection & cursor</td><td class="dim">ui.selection, ui.cursor, ui.cursorline.primary, ui.linenr.selected</td></tr><tr><td class="m" style="width:34%">Diagnostics</td><td class="dim">diagnostic.error / .warning / .info — plus `ui.virtual.wrap`? no: the gutter sign is drawn by Helix</td></tr><tr><td class="m" style="width:34%">Diff</td><td class="dim">diff.plus, diff.minus, diff.delta, diff.plus.gutter, diff.minus.gutter</td></tr><tr><td class="m" style="width:34%">Mode blocks</td><td class="dim">ui.statusline.normal / .insert / .select — the mode word plus its fill; visual mode is VIS, select mode is SEL</td></tr><tr><td class="m" style="width:34%">Terminal</td><td class="dim">Not built in. Helix runs inside the terminal; terminal ANSI is configured by the emulator, not the theme</td></tr></tbody></table><ul class="rec-list"><li><span class="k">01</span><span>Tree-sitter captures only. Helix does not consume LSP semantic tokens, so `function` cannot distinguish a local closure from a method by token type alone.</span></li><li><span class="k">02</span><span>No separate foreground for doc comments is guaranteed; the adapter maps comment.documentation and falls back to comment.</span></li><li><span class="k">03</span><span>Truecolor support is required for every hex above. On a 256-colour terminal Helix quantises and the measured ratios no longer hold.</span></li><li><span class="k">04</span><span>The active line number has its own key; the line number itself has none, so both resolve to muted.</span></li><li><span class="k">05</span><span>Visual mode is a state, not a syntax colour. Approval of VIS rests on the mode word staying legible on its fill: bone on sage measures 5.42:1 in Paper, coal on sage 7.40:1 in Ink.</span></li></ul><h3 class="rec-sub">Zed</h3><p class="rec-p">~/.config/zed/themes/lacuna.json, then `"theme": "Lacuna Ink"` in settings.json. The file is a theme family with two entries.</p><p class="rec-p">JSON with a `themes` array; each entry carries `name`, `appearance` and a flat `style` object of dot-named keys.</p><table class="tbl"><tbody><tr><td class="m" style="width:34%">Colour values</td><td class="dim">Literal hex per key; Zed has no palette indirection inside a theme file</td></tr><tr><td class="m" style="width:34%">Document surface</td><td class="dim">background, text, text.muted, border, element.background</td></tr><tr><td class="m" style="width:34%">Syntax</td><td class="dim">syntax.keyword, syntax.string, syntax.type, syntax.number, syntax.function, syntax.comment</td></tr><tr><td class="m" style="width:34%">Selection & cursor</td><td class="dim">element.selected, editor.highlighted_line.background, editor.document_highlight.read_background</td></tr><tr><td class="m" style="width:34%">Diagnostics</td><td class="dim">error, warning, info, hint — surfaced in the diagnostics panel and as underlines</td></tr><tr><td class="m" style="width:34%">Diff</td><td class="dim">diff.plus.background, diff.minus.background, diff.delta.background</td></tr><tr><td class="m" style="width:34%">Terminal</td><td class="dim">terminal.background, terminal.foreground, terminal.ansi.red / green / yellow …</td></tr></tbody></table><ul class="rec-list"><li><span class="k">01</span><span>Zed resolves tree-sitter highlights and LSP semantic tokens. Semantic tokens win where the language server provides them, so `function.method` can differ from the same text in Helix.</span></li><li><span class="k">02</span><span>`syntax.type` covers namespaces; Zed has no separate namespace key in the family schema used here.</span></li><li><span class="k">03</span><span>ANSI colours have no blue or magenta in the Aporia palette. Both fall back to type ochre and chestnut and are flagged in Open items.</span></li><li><span class="k">04</span><span>Family files are validated against the installed Zed build; unknown keys are ignored rather than rejected, so a silent fallback is possible.</span></li></ul><h2 class="rec-h">Contrast</h2><p class="rec-p">Every pair is <b>calculated</b> from canonical Aporia tokens using WCAG relative luminance. <b>No pair has been measured in Helix or Zed.</b> Method: calculated (this build) · visually inspected (this build) · real host (pending).</p><h3 class="rec-sub">Lacuna Paper</h3><table class="tbl"><thead><tr><th>Pair</th><th class="m">Ratio</th><th class="m">Min</th><th class="m">Result</th></tr></thead><tbody><tr><td>foreground on background<br><span class="dim">Body text, variables</span></td><td class="m">15.40:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>muted on background<br><span class="dim">Line numbers, secondary UI</span></td><td class="m">5.20:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>muted on surface<br><span class="dim">Status line, inactive tabs</span></td><td class="m">4.63:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on background<br><span class="dim">Comments</span></td><td class="m">5.20:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>keyword on background<br><span class="dim">Keywords</span></td><td class="m">5.43:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on background<br><span class="dim">Types, namespaces</span></td><td class="m">5.31:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>string on background<br><span class="dim">Strings</span></td><td class="m">5.42:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>number on background<br><span class="dim">Numbers, constants</span></td><td class="m">6.07:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on selection<br><span class="dim">Normal editor text on the canonical selection background</span></td><td class="m">14.02:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on search<br><span class="dim">Types inside a search match</span></td><td class="m">4.82:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on search<br><span class="dim">Comments inside the current match</span></td><td class="m">4.72:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on search-soft<br><span class="dim">Types inside an ordinary match</span></td><td class="m">4.82:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on active-line<br><span class="dim">Text on the cursor line</span></td><td class="m">14.13:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on active-line<br><span class="dim">Comments on the cursor line</span></td><td class="m">4.77:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on diff-add<br><span class="dim">Added lines</span></td><td class="m">14.18:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>keyword on diff-remove<br><span class="dim">Removed lines, syntax preserved</span></td><td class="m">4.95:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on diff-change<br><span class="dim">Changed lines</span></td><td class="m">4.68:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>diagnostic on background<br><span class="dim">Error text, Paper red / Ink red</span></td><td class="m">5.43:1</td><td class="m dim">3.0:1</td><td class="m pass">PASS</td></tr></tbody></table><h3 class="rec-sub">Lacuna Ink</h3><table class="tbl"><thead><tr><th>Pair</th><th class="m">Ratio</th><th class="m">Min</th><th class="m">Result</th></tr></thead><tbody><tr><td>foreground on background<br><span class="dim">Body text, variables</span></td><td class="m">13.72:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>muted on background<br><span class="dim">Line numbers, secondary UI</span></td><td class="m">5.61:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>muted on surface<br><span class="dim">Status line, inactive tabs</span></td><td class="m">4.83:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on background<br><span class="dim">Comments</span></td><td class="m">5.61:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>keyword on background<br><span class="dim">Keywords</span></td><td class="m">5.70:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on background<br><span class="dim">Types, namespaces</span></td><td class="m">6.70:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>string on background<br><span class="dim">Strings</span></td><td class="m">7.40:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>number on background<br><span class="dim">Numbers, constants</span></td><td class="m">7.51:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on selection<br><span class="dim">Normal editor text on the canonical selection background</span></td><td class="m">11.98:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on search<br><span class="dim">Types inside a search match</span></td><td class="m">5.48:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on search<br><span class="dim">Comments inside the current match</span></td><td class="m">4.59:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on search-soft<br><span class="dim">Types inside an ordinary match</span></td><td class="m">5.48:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on active-line<br><span class="dim">Text on the cursor line</span></td><td class="m">12.86:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>comment on active-line<br><span class="dim">Comments on the cursor line</span></td><td class="m">5.26:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>foreground on diff-add<br><span class="dim">Added lines</span></td><td class="m">11.76:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>keyword on diff-remove<br><span class="dim">Removed lines, syntax preserved</span></td><td class="m">5.19:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>type on diff-change<br><span class="dim">Changed lines</span></td><td class="m">5.26:1</td><td class="m dim">4.5:1</td><td class="m pass">PASS</td></tr><tr><td>diagnostic on background<br><span class="dim">Error text, Paper red / Ink red</span></td><td class="m">5.70:1</td><td class="m dim">3.0:1</td><td class="m pass">PASS</td></tr></tbody></table><p class="rec-p"><b>36 pass · 0 fail</b> across 36 calculated pairs. A terminal that quantises to 256 colours, a Zed build that resolves a semantic token differently, or a different font weight can all change the result.</p><h2 class="rec-h">Open items</h2><ul class="rec-list"><li><span class="k">Q1</span><span><b>Real editor validation</b>Helix and Zed need real host screenshots, syntax-capture QA and OS-theme switching checks. Generated HTML specimens are illustrations, not editor screenshots.</span></li><li><span class="k">Q2</span><span><b>Text selection</b>Selection is the canonical editor.selection token rather than reverse-video. Test multiline selections, selection text legibility and multiple cursors in each host.</span></li><li><span class="k">Q3</span><span><b>Host feature differences</b>Helix uses Tree-sitter captures; Zed can also use semantic tokens. Some colors depend on the active grammar and editor version.</span></li><li><span class="k">Q4</span><span><b>Truecolor and terminal palettes</b>Real terminal colors may differ with 256-color quantization and display profiles. ANSI blue/magenta/cyan use the canonical utility roles, not a parallel theme palette.</span></li><li><span class="k">Q5</span><span><b>Fonts and shaping</b>Theme files control color, not font fallback, ligatures, Persian shaping or terminal character-cell width. These remain host configuration concerns.</span></li></ul><h2 class="rec-h">Handoff</h2><ul class="rec-list"><li><span class="k">01</span><span><b>Edit only the canonical tree</b>Edit aporia/tokens.json; use aporia/RULES.md for intended semantics. Do not edit dist or generated previews.</span></li><li><span class="k">02</span><span><b>Generate every platform</b>Run npm run build. This resolves the same 79 color roles for Paper and Ink and produces all host themes and the gallery.</span></li><li><span class="k">03</span><span><b>Validate and check drift</b>Run npm test and npm run check:drift. Tests cover contrast, file structure, matrix completeness and determinism.</span></li><li><span class="k">04</span><span><b>Install a host theme</b>Follow docs/INSTALL.md to install Helix, Zed, VS Code, Kitty, Ghostty, Alacritty or WezTerm assets.</span></li><li><span class="k">05</span><span><b>Test in the actual host</b>Visually test diagnostics, selections, diffs and syntax in a live editor or terminal; browser specimens are an approximation.</span></li></ul><h3 class="rec-sub">Helix — Lacuna Ink</h3><pre class="snip"># Lacuna Ink — generated by aporia/build.mjs from aporia/tokens.json.
+# Install: cp lacuna-ink.toml ~/.config/helix/themes/lacuna-ink.toml
+#         then set theme = "lacuna-ink" in ~/.config/helix/config.toml
+# Source roles: color.ink.* — do not edit this file.
+
+"ui.background" = { bg = "#191B1A" }
+"ui.text" = "#EDE4D3"
+"ui.text.focus" = "#EDE4D3"
+"ui.cursor" = { fg = "#191B1A", bg = "#D87975" }
+"ui.cursor.primary" = { fg = "#191B1A", bg = "#D87975" }
+"ui.cursor.match" = { bg = "#362913" }
+"ui.selection" = { bg = "#1D2732" }
+"ui.selection.primary" = { bg = "#1D2732" }
+"ui.cursorline.primary" = { bg = "#1E2120" }
+"ui.highlight" = { bg = "#362913" }
+"ui.linenr" = "#8E9588"
+"ui.linenr.selected" = "#EDE4D3"
+"ui.gutter" = { bg = "#191B1A" }
+"ui.statusline" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.statusline.inactive" = { fg = "#A9A394", bg = "#202321" }
+"ui.statusline.normal" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.statusline.insert" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.statusline.select" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.popup" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.popup.info" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.window" = "#393D39"
+"ui.help" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.menu" = { fg = "#EDE4D3", bg = "#252826" }
+"ui.menu.selected" = { fg = "#EDE4D3", bg = "#2D322F" }
+"ui.menu.scroll" = { fg = "#A9A394", bg = "#252826" }
+"ui.bufferline" = { fg = "#8E9588", bg = "#252826" }
+"ui.bufferline.active" = { fg = "#EDE4D3", bg = "#191B1A" }
+"ui.virtual.ruler" = { bg = "#202321" }
+"ui.virtual.whitespace" = "#D2C7AE"
+"diff.plus" = "#9BAF98"
+"diff.minus" = "#D87975"
+"diff.delta" = "#C19B62"
+"diagnostic.error" = { underline = { color = "#D87975", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "#D1A17D", style = "curl" } }
+"diagnostic.info" = { underline = { color = "#A9A394", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "#8E9588", style = "curl" } }
+"error" = "#D87975"
+"warning" = "#D1A17D"
+"info" = "#A9A394"
+"hint" = "#8E9588"
+"keyword" = "#D87975"
+"type" = "#C19B62"
+"function" = "#D2C7AE"
+"string" = "#9BAF98"
+"constant" = "#C19B62"
+"constant.numeric" = "#D1A17D"
+"comment" = "#8E9588"
+"variable" = "#EDE4D3"
+"variable.other.member" = "#EDE4D3"
+"operator" = "#A9A394"
+"punctuation" = "#A9A394"
+"namespace" = "#C19B62"
+"label" = "#EDE4D3"
+"attribute" = "#C19B62"
+"markup.heading" = "#EDE4D3"
+"markup.link" = "#D87975"
+"markup.raw" = "#D2C7AE"
+"markup.list" = "#A9A394"
+"markup.bold" = "#EDE4D3"
+"markup.italic" = "#D87975"
+</pre><h3 class="rec-sub">Zed — theme family</h3><pre class="snip">{
+  "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
+  "name": "Lacuna",
+  "author": "Aporia",
+  "themes": [
+    {
+      "name": "Lacuna Paper",
+      "appearance": "light",
+      "style": {
+        "background": "#EDE4D3",
+        "surface.background": "#E0D8C8",
+        "panel.background": "#E3DACA",
+        "panel.focused_border": "#3A3A36",
+        "border": "#B0AA9E",
+        "border.variant": "#CDC5B7",
+        "border.focused": "#B01E28",
+        "border.selected": "#3A3A36",
+        "border.transparent": "#CDC5B7",
+        "text": "#0D0D0D",
+        "text.muted": "#524F48",
+        "text.placeholder": "#615D54",
+        "text.disabled": "#8A867C",
+        "text.accent": "#B01E28",
+        "icon": "#524F48",
+        "icon.muted": "#615D54",
+        "icon.accent": "#B01E28",
+        "element.background": "#E0D8C8",
+        "element.hover": "#DFD7C6",
+        "element.active": "#D5CDBD",
+        "element.selected": "#D8D0C0",
+        "element.disabled": "#DFD7C6",
+        "ghost_element.background": "#EDE4D3",
+        "ghost_element.hover": "#DFD7C6",
+        "ghost_element.active": "#D5CDBD",
+        "ghost_element.selected": "#D8D0C0",
+        "drop_target.background": "#D8D0C0",
+        "editor.background": "#EDE4D3",
+        "editor.foreground": "#0D0D0D",
+        "editor.gutter.background": "#EDE4D3",
+        "editor.line_number": "#615D54",
+        "editor.active_line_number": "#0D0D0D",
+        "editor.active_line.background": "#E3DBCC",
+        "editor.document_highlight.read_background": "#E3DBCC",
+        "editor.document_highlight.write_background": "#EAD9B6",
+        "editor.indent_guide": "#CDC5B7",
+        "editor.indent_guide_active": "#3A3A36",
+        "terminal.background": "#EDE4D3",
+        "terminal.foreground": "#0D0D0D",
+        "terminal.bright_foreground": "#0D0D0D",
+        "terminal.dim_foreground": "#0D0D0D",
+        "terminal.ansi.black": "#0D0D0D",
+        "terminal.ansi.red": "#B01E28",
+        "terminal.ansi.green": "#426247",
+        "terminal.ansi.yellow": "#79551F",
+        "terminal.ansi.blue": "#3B5876",
+        "terminal.ansi.magenta": "#6C4860",
+        "terminal.ansi.cyan": "#255F62",
+        "terminal.ansi.white": "#524F48",
+        "terminal.ansi.bright_black": "#3A3A36",
+        "terminal.ansi.bright_red": "#8B3A2E",
+        "terminal.ansi.bright_green": "#344F39",
+        "terminal.ansi.bright_yellow": "#674611",
+        "terminal.ansi.bright_blue": "#334F6D",
+        "terminal.ansi.bright_magenta": "#634057",
+        "terminal.ansi.bright_cyan": "#1B575A",
+        "terminal.ansi.bright_white": "#1A1A18",
+        "status_bar.background": "#E0D8C8",
+        "title_bar.background": "#E3DACA",
+        "title_bar.inactive_background": "#E3DACA",
+        "toolbar.background": "#EDE4D3",
+        "tab_bar.background": "#E3DACA",
+        "tab.inactive_background": "#E3DACA",
+        "tab.active_background": "#EDE4D3",
+        "search.match_background": "#EAD9B6",
+        "search.active_match_background": "#EAD9B6",
+        "scrollbar.thumb.background": "#B0AA9E",
+        "scrollbar.thumb.hover_background": "#3A3A36",
+        "scrollbar.track.background": "#EDE4D3",
+        "minimap.thumb.background": "#B0AA9E",
+        "minimap.thumb.hover_background": "#3A3A36",
+        "version_control.added": "#426247",
+        "version_control.deleted": "#B01E28",
+        "version_control.modified": "#79551F",
+        "conflict": "#8B3A2E",
+        "players": [
+          {
+            "cursor": "#B01E28",
+            "background": "#B01E28",
+            "selection": "#CCDDEE"
+          },
+          {
+            "cursor": "#426247",
+            "background": "#426247",
+            "selection": "#D8D0C0"
+          },
+          {
+            "cursor": "#79551F",
+            "background": "#79551F",
+            "selection": "#D8D0C0"
+          },
+          {
+            "cursor": "#524F48",
+            "background": "#524F48",
+            "selection": "#D8D0C0"
+          }
+        ],
+        "syntax": {
+          "keyword": {
+            "color": "#B01E28"
+          },
+          "type": {
+            "color": "#79551F"
+          },
+          "function": {
+            "color": "#343A35"
+          },
+          "string": {
+            "color": "#426247"
+          },
+          "number": {
+            "color": "#8B3A2E"
+          },
+          "comment": {
+            "color": "#615D54",
+            "font_style": "italic"
+          },
+          "variable": {
+            "color": "#0D0D0D"
+          },
+          "variable.special": {
+            "color": "#0D0D0D"
+          },
+          "property": {
+            "color": "#0D0D0D"
+          },
+          "operator": {
+            "color": "#3A3A36"
+          },
+          "punctuation": {
+            "color": "#3A3A36"
+          },
+          "punctuation.bracket": {
+            "color": "#3A3A36"
+          },
+          "punctuation.delimiter": {
+            "color": "#3A3A36"
+          },
+          "constant": {
+            "color": "#79551F"
+          },
+          "attribute": {
+            "color": "#79551F"
+          },
+          "label": {
+            "color": "#0D0D0D"
+          },
+          "namespace": {
+            "color": "#79551F"
+          },
+          "title": {
+            "color": "#343A35"
+          },
+          "emphasis": {
+            "color": "#B01E28",
+            "font_style": "italic"
+          },
+          "strong": {
+            "color": "#0D0D0D",
+            "font_weight": 600
+          },
+          "link_text": {
+            "color": "#B01E28"
+          },
+          "link_uri": {
+            "color": "#343A35"
+          },
+          "embedded": {
+            "color": "#0D0D0D"
+          }
+        }
+      }
+    },
+    {
+      "name": "Lacuna Ink",
+      "appearance": "dark",
+      "style": {
+        "background": "#191B1A",
+        "surface.background": "#252826",
+        "panel.background": "#202321",
+        "panel.focused_border": "#A9A394",
+        "border": "#393D39",
+        "border.variant": "#202321",
+        "border.focused": "#D87975",
+        "border.selected": "#A9A394",
+        "border.transparent": "#202321",
+        "text": "#EDE4D3",
+        "text.muted": "#A9A394",
+        "text.placeholder": "#8E9588",
+        "text.disabled": "#5B5F5B",
+        "text.accent": "#D87975",
+        "icon": "#A9A394",
+        "icon.muted": "#8E9588",
+        "icon.accent": "#D87975",
+        "element.background": "#252826",
+        "element.hover": "#2B2F2D",
+        "element.active": "#333634",
+        "element.selected": "#2D322F",
+        "element.disabled": "#2B2F2D",
+        "ghost_element.background": "#191B1A",
+        "ghost_element.hover": "#2B2F2D",
+        "ghost_element.active": "#333634",
+        "ghost_element.selected": "#2D322F",
+        "drop_target.background": "#2D322F",
+        "editor.background": "#191B1A",
+        "editor.foreground": "#EDE4D3",
+        "editor.gutter.background": "#191B1A",
+        "editor.line_number": "#8E9588",
+        "editor.active_line_number": "#EDE4D3",
+        "editor.active_line.background": "#1E2120",
+        "editor.document_highlight.read_background": "#1E2120",
+        "editor.document_highlight.write_background": "#362913",
+        "editor.indent_guide": "#202321",
+        "editor.indent_guide_active": "#A9A394",
+        "terminal.background": "#191B1A",
+        "terminal.foreground": "#EDE4D3",
+        "terminal.bright_foreground": "#EDE4D3",
+        "terminal.dim_foreground": "#EDE4D3",
+        "terminal.ansi.black": "#393D39",
+        "terminal.ansi.red": "#D87975",
+        "terminal.ansi.green": "#9BAF98",
+        "terminal.ansi.yellow": "#C19B62",
+        "terminal.ansi.blue": "#93AECA",
+        "terminal.ansi.magenta": "#C19FB5",
+        "terminal.ansi.cyan": "#86B5B7",
+        "terminal.ansi.white": "#D2C7AE",
+        "terminal.ansi.bright_black": "#888E87",
+        "terminal.ansi.bright_red": "#E59A96",
+        "terminal.ansi.bright_green": "#ACC6AC",
+        "terminal.ansi.bright_yellow": "#D9B982",
+        "terminal.ansi.bright_blue": "#A6C1DD",
+        "terminal.ansi.bright_magenta": "#D5B2C8",
+        "terminal.ansi.bright_cyan": "#98C8CA",
+        "terminal.ansi.bright_white": "#EDE4D3",
+        "status_bar.background": "#252826",
+        "title_bar.background": "#202321",
+        "title_bar.inactive_background": "#202321",
+        "toolbar.background": "#191B1A",
+        "tab_bar.background": "#202321",
+        "tab.inactive_background": "#202321",
+        "tab.active_background": "#191B1A",
+        "search.match_background": "#362913",
+        "search.active_match_background": "#362913",
+        "scrollbar.thumb.background": "#393D39",
+        "scrollbar.thumb.hover_background": "#A9A394",
+        "scrollbar.track.background": "#191B1A",
+        "minimap.thumb.background": "#393D39",
+        "minimap.thumb.hover_background": "#A9A394",
+        "version_control.added": "#9BAF98",
+        "version_control.deleted": "#D87975",
+        "version_control.modified": "#C19B62",
+        "conflict": "#D1A17D",
+        "players": [
+          {
+            "cursor": "#D87975",
+            "background": "#D87975",
+            "selection": "#1D2732"
+          },
+          {
+            "cursor": "#9BAF98",
+            "background": "#9BAF98",
+            "selection": "#2D322F"
+          },
+          {
+            "cursor": "#C19B62",
+            "background": "#C19B62",
+            "selection": "#2D322F"
+          },
+          {
+            "cursor": "#A9A394",
+            "background": "#A9A394",
+            "selection": "#2D322F"
+          }
+        ],
+        "syntax": {
+          "keyword": {
+            "color": "#D87975"
+          },
+          "type": {
+            "color": "#C19B62"
+          },
+          "function": {
+            "color": "#D2C7AE"
+          },
+          "string": {
+            "color": "#9BAF98"
+          },
+          "number": {
+            "color": "#D1A17D"
+          },
+          "comment": {
+            "color": "#8E9588",
+            "font_style": "italic"
+          },
+          "variable": {
+            "color": "#EDE4D3"
+          },
+          "variable.special": {
+            "color": "#EDE4D3"
+          },
+          "property": {
+            "color": "#EDE4D3"
+          },
+          "operator": {
+            "color": "#A9A394"
+          },
+          "punctuation": {
+            "color": "#A9A394"
+          },
+          "punctuation.bracket": {
+            "color": "#A9A394"
+          },
+          "punctuation.delimiter": {
+            "color": "#A9A394"
+          },
+          "constant": {
+            "color": "#C19B62"
+          },
+          "attribute": {
+            "color": "#C19B62"
+          },
+          "label": {
+            "color": "#EDE4D3"
+          },
+          "namespace": {
+            "color": "#C19B62"
+          },
+          "title": {
+            "color": "#D2C7AE"
+          },
+          "emphasis": {
+            "color": "#D87975",
+            "font_style": "italic"
+          },
+          "strong": {
+            "color": "#EDE4D3",
+            "font_weight": 600
+          },
+          "link_text": {
+            "color": "#D87975"
+          },
+          "link_uri": {
+            "color": "#D2C7AE"
+          },
+          "embedded": {
+            "color": "#EDE4D3"
+          }
+        }
+      }
+    }
+  ]
+}
+</pre><p class="rec-p" style="margin-top:12px">Both files are <b>generated by the repository build</b>. Structural checks have run; actual editor rendering still needs host QA.</p></div></details><footer class="foot"><div class="wrap foot-in"><div><h3>Lacuna — a family inside Aporia</h3><p>Paper and Ink are one mapping in two editions. Aporia owns the identity; Lacuna carries it into editors and terminals. Nothing here was captured from Helix or Zed.</p><p style="margin-top:8px"><a href="lacuna-themes.html">Page 01</a> · <a href="index.html">Gallery index</a> · <a href="#record">Role map</a></p></div><div class="foot-nav"><span>Previous</span><a href="helix-ink-typescript-specimen.html">09 — Helix / Ink / TypeScript / Code specimen</a></div><div class="foot-nav"><span>Same page, other edition</span><a href="helix-paper-typescript-work.html">Helix / Paper / TypeScript / Working environment</a><span style="margin-top:10px">Next</span><a href="helix-ink-go-specimen.html">11 — Helix / Ink / Go / Code specimen</a></div></div></footer></div>
+<script>function openRecord(){if(location.hash==='#record')document.getElementById('record').open=true;}addEventListener('hashchange',openRecord);addEventListener('click',function(e){if(e.target.closest('a[href="#record"]'))document.getElementById('record').open=true;});openRecord();</script>
+</body>
+</html>

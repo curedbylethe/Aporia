@@ -1,0 +1,23 @@
+# Lacuna ink — generated from aporia/tokens.json
+background = #191B1A
+foreground = #EDE4D3
+cursor-color = #D87975
+cursor-text = #191B1A
+selection-background = #1D2732
+selection-foreground = #EDE4D3
+palette = 0=#393D39
+palette = 1=#D87975
+palette = 2=#9BAF98
+palette = 3=#C19B62
+palette = 4=#93AECA
+palette = 5=#C19FB5
+palette = 6=#86B5B7
+palette = 7=#D2C7AE
+palette = 8=#888E87
+palette = 9=#E59A96
+palette = 10=#ACC6AC
+palette = 11=#D9B982
+palette = 12=#A6C1DD
+palette = 13=#D5B2C8
+palette = 14=#98C8CA
+palette = 15=#EDE4D3

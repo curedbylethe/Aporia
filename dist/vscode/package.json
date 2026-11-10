@@ -1,0 +1,29 @@
+{
+  "name": "lacuna-theme",
+  "displayName": "Lacuna — Aporia Themes",
+  "description": "Lacuna Paper and Lacuna Ink color themes generated from Aporia design tokens.",
+  "version": "0.1.0",
+  "publisher": "aporia",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Lacuna Paper",
+        "uiTheme": "vs",
+        "path": "./themes/lacuna-paper-color-theme.json"
+      },
+      {
+        "label": "Lacuna Ink",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lacuna-ink-color-theme.json"
+      }
+    ]
+  }
+}

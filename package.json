@@ -1,0 +1,17 @@
+{
+  "name": "aporia-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Canonical Aporia design tokens and the Lacuna Paper/Ink theme family",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build:core": "node aporia/build.mjs",
+    "build:platforms": "node scripts/build-platforms.mjs",
+    "build:gallery": "node scripts/build-gallery.mjs",
+    "build": "npm run build:core && npm run build:platforms && npm run build:gallery",
+    "test": "node scripts/check.mjs",
+    "check:drift": "node scripts/check-drift.mjs",
+    "verify": "npm run build && npm test && npm run check:drift"
+  }
+}

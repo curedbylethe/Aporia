@@ -1,0 +1,32 @@
+# Lacuna paper — generated from aporia/tokens.json
+[colors.primary]
+background = "#EDE4D3"
+foreground = "#0D0D0D"
+
+[colors.cursor]
+text = "#EDE4D3"
+cursor = "#B01E28"
+
+[colors.selection]
+text = "#0D0D0D"
+background = "#CCDDEE"
+
+[colors.normal]
+black = "#0D0D0D"
+red = "#B01E28"
+green = "#426247"
+yellow = "#79551F"
+blue = "#3B5876"
+magenta = "#6C4860"
+cyan = "#255F62"
+white = "#524F48"
+
+[colors.bright]
+black = "#3A3A36"
+red = "#8B3A2E"
+green = "#344F39"
+yellow = "#674611"
+blue = "#334F6D"
+magenta = "#634057"
+cyan = "#1B575A"
+white = "#1A1A18"
