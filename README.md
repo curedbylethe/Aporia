@@ -49,7 +49,7 @@ aporia/
 │   ├── build-gallery.mjs           # gallery from exact resolved host tokens
 │   ├── check.mjs                   # offline structural and content checks
 │   └── check-drift.mjs             # byte-identical rebuild detection
-├── dist/                           # ALL generated: do not edit
+├── dist/                           # generated artifacts and installation guides
 │   ├── helix/  zed/  vscode/
 │   ├── kitty/  ghostty/  alacritty/  wezterm/
 │   ├── web/                        # CSS, JS, resolved JSON
@@ -79,6 +79,6 @@ aporia/
 
 ## Changing a token
 
-Edit `aporia/tokens.json`, run `npm run build`, inspect the host outputs and preview gallery, then run `npm run verify`. Do not hand-edit anything in `dist/` or `previews/dist/`.
+Edit `aporia/tokens.json`, run `npm run build`, inspect the host outputs and preview gallery, then run `npm run verify`. Do not hand-edit generated artifacts in `dist/` or `previews/dist/`.
 
 **License:** no open-source license has been selected on the author's behalf. See [LICENSE-NOTICE.md](LICENSE-NOTICE.md) before publishing or accepting external contributions.
