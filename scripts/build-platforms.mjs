@@ -9,6 +9,7 @@ const dist = path.join(root, 'dist');
 const resolved = JSON.parse(fs.readFileSync(path.join(dist, 'web/tokens.resolved.json'), 'utf8'));
 const sem = Object.fromEntries(resolved.semantic.map(t => [t.key, t]));
 const modes = ['paper', 'ink'];
+const { version } = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
 const write = (f, content) => {const p = path.join(dist, f); fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,content);};
 const json = obj => JSON.stringify(obj, null, 2) + '\n';
 const color = (mode, role) => {
@@ -178,7 +179,7 @@ for (const m of modes) { vscode(m); kitty(m); ghostty(m); alacritty(m); wezterm(
 const extensionPkg = {
   name:'lacuna-theme', displayName:'Lacuna — Aporia Themes',
   description:'Lacuna Paper and Lacuna Ink color themes generated from Aporia design tokens.',
-  version:'0.1.0', publisher:'aporia', license:'UNLICENSED', private:true,
+  version, publisher:'aporia', license:'Apache-2.0', private:true,
   engines:{vscode:'^1.85.0'}, categories:['Themes'],
   contributes:{themes:modes.map(m=>({
     label:`Lacuna ${m==='paper'?'Paper':'Ink'}`,
@@ -188,11 +189,10 @@ const extensionPkg = {
 };
 write('vscode/package.json',json(extensionPkg));
 write('zed/extension.toml', [
-  'id = "lacuna"', 'name = "Lacuna"','version = "0.1.0"',
+  'id = "lacuna"', 'name = "Lacuna"',`version = "${version}"`,
   'schema_version = 1', 'authors = ["Aporia"]',
   'description = "Lacuna Paper and Lacuna Ink, generated from Aporia tokens"',
-  '# Planned repository address; verify or change before publishing the extension.',
-  'repository = "https://github.com/curedbylethe/aporia"', '',
+  'repository = "https://github.com/curedbylethe/Aporia"', '',
 ].join('\n'));
 // Self-contained Zed extension directory alongside the standalone local theme.
 write('zed/themes/lacuna.json',fs.readFileSync(path.join(dist,'zed/lacuna.json'),'utf8'));

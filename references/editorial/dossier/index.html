@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TELEVIM | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Technical dossier</span></header>
+<main>
+<p class="meta">Keeping the reading order in a terminal conversation.</p>
+<h1>TELEVIM<span class="accent">.</span></h1>
+<section class="layout"><div><p class="lead">A text interface must keep logical message order separate from terminal cell placement. This Televim-inspired dossier uses a synthetic fixture to expose the distinction.</p><section class="band" id="decision"><h2>Separate layout from navigation</h2><p>Retain stable logical message identifiers. Shape each line for display, then project hit targets back to the logical record.</p></section></div><aside class="plate"><h2>Record</h2><dl><dt>Medium</dt><dd>Terminal</dd><dt>Constraint</dt><dd>Mixed-direction text</dd><dt>Evidence</dt><dd>Synthetic fixture</dd></dl><nav><a href="#decision">Decision</a><a href="#evidence">Evidence</a></nav></aside></section>
+<section class="band" id="evidence"><h2>Render comparison</h2><p>Illustrative median across 50 synthetic samples. Both rows share a 30 ms scale.</p><div class="toolbar" aria-label="Comparison view"><button data-mode="ms" aria-pressed="true">Milliseconds</button><button data-mode="relative" aria-pressed="false">Relative to baseline</button></div><table><thead><tr><th scope="col">Path</th><th class="numeric" scope="col" id="unit">Median (ms)</th></tr></thead><tbody><tr><th scope="row">Full layout</th><td class="numeric" id="baseline">24</td></tr><tr><th scope="row">Cached layout</th><td class="numeric" id="cached">12</td></tr></tbody></table><p class="band"><strong>Next measurement.</strong> Rerun on real conversations with Persian, emoji and terminal resize events.</p></section>
+</main>
+<script>document.querySelectorAll('[data-mode]').forEach(button => button.onclick = () => {
+  document.querySelectorAll('[data-mode]').forEach(option => option.setAttribute('aria-pressed', String(option === button)));
+  const relative = button.dataset.mode === 'relative';
+  document.querySelector('#unit').textContent = relative ? 'Share of baseline' : 'Median (ms)';
+  document.querySelector('#baseline').textContent = relative ? '100%' : '24';
+  document.querySelector('#cached').textContent = relative ? '50%' : '12';
+});</script>
+</body>
+</html>

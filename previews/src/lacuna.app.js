@@ -720,7 +720,7 @@
   /* ---------------- static pages -------------------------------------- */
   const VIS_SPECIMENS = ["helix-paper-rust-specimen", "helix-ink-rust-specimen"];
   const isVisualSpecimen = (page) => VIS_SPECIMENS.indexOf(page.slug) > -1;
-  const fileFor = (p) => (p === MATRIX[0] ? "lacuna-themes.html" : p.slug + ".html");
+  const fileFor = (p) => p.slug + ".html";
 
   function switchTarget(page, key, value) {
     return MATRIX.find((p) =>
@@ -871,5 +871,5 @@
       "<script>function openRecord(){if(location.hash==='#record')document.getElementById('record').open=true;}addEventListener('hashchange',openRecord);addEventListener('click',function(e){if(e.target.closest('a[href=\"#record\"]'))document.getElementById('record').open=true;});openRecord();<" + "/script>\n</body>\n</html>";
   }
 
-  globalThis.__LACUNA = { MATRIX, fileFor, documentHtml };
+  globalThis.__LACUNA = { MATRIX, fileFor, documentHtml, tokenize };
 })();

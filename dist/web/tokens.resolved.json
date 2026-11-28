@@ -12,7 +12,7 @@
       "hex": "#E0D8C8",
       "source": "#E0D8C8",
       "p": "canonical",
-      "desc": "Raised sheet, one block per page"
+      "desc": "Raised editorial sheet or interface surface"
     },
     {
       "name": "bone-warm",
@@ -892,6 +892,56 @@
       "inkRef": "bone"
     }
   ],
+  "typography": {
+    "masthead": {
+      "size": "clamp(2rem, 13vw, 10rem)",
+      "leading": 1,
+      "tracking": "-0.02em",
+      "weight": 400
+    },
+    "display": {
+      "size": "clamp(2.5rem, 8vw, 6rem)",
+      "leading": 1,
+      "tracking": "-0.02em",
+      "weight": 400
+    },
+    "heading": {
+      "size": "clamp(1.25rem, 3vw, 2rem)",
+      "leading": 1.2,
+      "tracking": "0em",
+      "weight": 700
+    },
+    "lead": {
+      "size": "1.25rem",
+      "leading": 1.5,
+      "tracking": "0em",
+      "weight": 400
+    },
+    "body": {
+      "size": "1rem",
+      "leading": 1.65,
+      "tracking": "0em",
+      "weight": 400
+    },
+    "compact": {
+      "size": "0.875rem",
+      "leading": 1.45,
+      "tracking": "0em",
+      "weight": 400
+    },
+    "metadata": {
+      "size": "0.75rem",
+      "leading": 1.45,
+      "tracking": "0.08em",
+      "weight": 400
+    },
+    "code": {
+      "size": "0.875rem",
+      "leading": 1.6,
+      "tracking": "0em",
+      "weight": 400
+    }
+  },
   "contrast": [
     {
       "mode": "paper",
@@ -2534,6 +2584,16 @@
       "pass": true
     },
     {
+      "mode": "paper",
+      "fg": "terminal.fg",
+      "bg": "terminal.bg",
+      "min": 4.5,
+      "fgHex": "#0D0D0D",
+      "bgHex": "#EDE4D3",
+      "ratio": 15.4,
+      "pass": true
+    },
+    {
       "mode": "ink",
       "fg": "fg.primary",
       "bg": "bg.canvas",
@@ -4161,6 +4221,16 @@
       "fgHex": "#93AECA",
       "bgHex": "#191B1A",
       "ratio": 7.54,
+      "pass": true
+    },
+    {
+      "mode": "ink",
+      "fg": "terminal.fg",
+      "bg": "terminal.bg",
+      "min": 4.5,
+      "fgHex": "#EDE4D3",
+      "bgHex": "#191B1A",
+      "ratio": 13.72,
       "pass": true
     }
   ],

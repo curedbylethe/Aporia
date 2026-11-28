@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Aporia design system documentation, working references and Lacuna themes.">
+<title>Aporia design system</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../dist/web/aporia.css">
+<link rel="stylesheet" href="aporia.css">
+<script defer src="../dist/web/tokens.js"></script>
+<script defer src="explore.js"></script>
+</head>
+<body>
+<header class="top">
+  <strong>Aporia</strong>
+  <nav aria-label="Site"><a href="#guides">Guides</a><a href="../references/index.html">References</a><a href="#tokens">Tokens</a><a href="../previews/dist/index.html">Lacuna</a></nav>
+</header>
+<main>
+  <section class="layout">
+    <div>
+      <h1>Form follows<br>evidence<span class="accent">.</span></h1>
+      <p class="lead">Aporia is an archival design system for technical publications, software and terminals.</p>
+    </div>
+    <aside class="plate">
+      <p class="meta">Design system · 0.2.0</p>
+      <h2>Start with the task</h2>
+      <p>Use Editorial to make an argument or guide a reader. Use Interface to help someone operate a tool.</p>
+      <a href="../references/index.html">Open working references</a>
+    </aside>
+  </section>
+  <section id="guides" class="band">
+    <h2>Design guides</h2>
+    <div class="index">
+      <a href="../DESIGN.md"><strong>Design contract</strong><span>Modes, hierarchy and acceptance</span></a>
+      <a href="../docs/PHILOSOPHY.md"><strong>Philosophy</strong><span>Eight design principles</span></a>
+      <a href="../docs/COMPOSITION.md"><strong>Composition</strong><span>Alignment, hierarchy and rhythm</span></a>
+      <a href="../docs/TYPOGRAPHY.md"><strong>Typography</strong><span>Display, reading and technical roles</span></a>
+      <a href="../docs/EDITORIAL.md"><strong>Editorial</strong><span>Dossiers, proposals and print</span></a>
+      <a href="../docs/INTERFACE.md"><strong>Interface</strong><span>Controls, focus and data states</span></a>
+      <a href="../docs/TERMINAL.md"><strong>Terminal</strong><span>Keyboard operation and capability mapping</span></a>
+      <a href="../docs/DATA-VISUALIZATION.md"><strong>Data visualization</strong><span>Comparisons and provenance</span></a>
+      <a href="../docs/VOICE.md"><strong>Voice</strong><span>Technical writing and uncertainty</span></a>
+      <a href="../docs/ANTI-PATTERNS.md"><strong>Anti-patterns</strong><span>Common failures and corrections</span></a>
+      <a href="../AGENTS.md"><strong>Agent workflow</strong><span>Designing and maintaining Aporia</span></a>
+      <a href="../docs/decisions/README.md"><strong>Decision records</strong><span>Alternatives, rationale and consequences</span></a>
+    </div>
+  </section>
+  <section id="tokens" class="band">
+    <h2>Semantic tokens</h2>
+    <p>Search resolved roles in Paper and Ink. <a href="../dist/web/aporia.css">Download CSS</a> or <a href="../dist/web/tokens.resolved.json">open JSON</a>.</p>
+    <div class="toolbar"><label>Search roles<input id="token-filter" type="search" autocomplete="off"></label><button type="button" id="reading-mode" aria-pressed="false">Ink reading mode</button></div>
+    <p id="role-count" role="status"></p>
+    <div class="table-wrap" tabindex="0" aria-label="Resolved tokens"><table><thead><tr><th scope="col">Role</th><th scope="col">Paper</th><th scope="col">Ink</th></tr></thead><tbody id="roles"></tbody></table></div>
+    <noscript><p>Open the resolved JSON to browse all roles with scripts disabled.</p></noscript>
+  </section>
+  <section class="band">
+    <h2>Lacuna</h2>
+    <div class="index">
+      <a href="../previews/dist/index.html"><strong>Gallery</strong><span>Paper and Ink across a shared code sample</span></a>
+      <a href="../docs/screenshots/README.md"><strong>Native captures</strong><span>Helix, Zed and Kitty provenance</span></a>
+      <a href="../docs/INSTALL.md"><strong>Install themes</strong><span>Editor, terminal and web packages</span></a>
+    </div>
+  </section>
+</main>
+</body>
+</html>

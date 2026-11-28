@@ -1,84 +1,53 @@
-# APORIA / LACUNA
+# Aporia
 
-**Aporia** is the identity and design-token system. **Lacuna** is its generated color theme family: **Lacuna Paper** (light) and **Lacuna Ink** (dark). This repository contains the token source, reproducible build scripts, distributable host themes, and a self-contained 24-page browser specimen gallery.
+Aporia is an archival design system for technical publications, software interfaces and terminals. Its identity comes from structure, useful density, restrained color and evidence the reader can inspect.
 
-All runtime color decisions originate in **[`aporia/tokens.json`](aporia/tokens.json)**. No host theme or browser page maintains its own production color palette.
+![Aporia identity plate. Form follows evidence.](docs/screenshots/aporia-identity.png)
 
-![Aporia / Lacuna Paper and Ink — browser-rendered specimen gallery](docs/screenshots/gallery-browser.png)
+**Lacuna Paper and Lacuna Ink** are Aporia's generated editor and terminal themes.
 
-*Browser-rendered gallery mockup, not a screenshot from Helix, Zed or another editor.*
+## Design with Aporia
 
-## Start here
+| Need | Start here |
+| --- | --- |
+| Brief a coding agent | [AGENTS.md](AGENTS.md), [portable workflow](packages/agent-skill/) |
+| Apply the design system | [Design contract](DESIGN.md), [philosophy](docs/PHILOSOPHY.md), [rulebook](aporia/RULES.md) |
+| Find a working example | [Reference library](references/) |
+| Understand a decision | [Design decision records](docs/decisions/), [changelog](CHANGELOG.md) |
+| Browse the system locally | Open [site/index.html](site/index.html), or build the documentation site below |
+
+The canonical [tokens](aporia/tokens.json) own values and the [rulebook](aporia/RULES.md) owns rule scope. Generated themes, examples and captures illustrate their use. See [architecture](docs/ARCHITECTURE.md) for the build and adapter contract.
+
+## Lacuna
+
+[Open the Paper and Ink browser comparison](previews/dist/index.html) for syntax colors from canonical semantic roles and the 24 editor specimens. The specimens simulate the host interfaces.
+
+| Host | Paper | Ink |
+| --- | --- | --- |
+| Helix | [Native capture](docs/screenshots/native/helix-paper.png) | [Native capture](docs/screenshots/native/helix-ink.png) |
+| Zed | [Native capture](docs/screenshots/native/zed-paper.png) | [Native capture](docs/screenshots/native/zed-ink.png) |
+| Kitty | [Native capture](docs/screenshots/native/kitty-paper.png) | [Native capture](docs/screenshots/native/kitty-ink.png) |
+
+See [capture provenance](docs/screenshots/) for host versions, fixture files and states. Use the [installation guide](docs/INSTALL.md) for Helix, Zed, VS Code, Kitty, Ghostty, Alacritty and WezTerm. Web consumers can use [the generated CSS and JSON](dist/web/).
+
+## Build and verify
+
+The token and theme build requires Node 20+ and no installed npm packages.
 
 ```sh
-# Node.js 20+; no npm dependencies, package installation, or network needed
-npm run build        # all theme outputs + 24 specimens + gallery index
-npm test             # format, token parity, contrast and link validation
-npm run check:drift  # regenerate and demand byte-identical artifacts
-npm run verify       # build + tests + drift detection
+npm run verify
 ```
 
-Open **[`previews/dist/index.html`](previews/dist/index.html)** in a browser to compare Paper and Ink and browse 24 Helix/Zed specimens. These pages contain inline CSS, data and markup; they do not make network requests or require a local web server.
+To build the static documentation site, run the browser checks and build the portable workflow:
 
-## Installable theme targets
-
-| Target | Generated artifacts | Install instructions |
-|---|---|---|
-| Helix | [`dist/helix/`](dist/helix/) | Copy `lacuna-{paper,ink}.toml` to your themes directory |
-| Zed | [`dist/zed/`](dist/zed/) | Local `lacuna.json`, or extension folder `themes/` + `extension.toml` |
-| VS Code | [`dist/vscode/`](dist/vscode/) | Self-contained local color-theme extension with two themes |
-| Kitty | [`dist/kitty/`](dist/kitty/) | Include `lacuna-{paper,ink}.conf` |
-| Ghostty | [`dist/ghostty/`](dist/ghostty/) | Configure a named theme, or system light/dark pair |
-| Alacritty | [`dist/alacritty/`](dist/alacritty/) | Import `lacuna-{paper,ink}.toml` |
-| WezTerm | [`dist/wezterm/`](dist/wezterm/) | Load the generated Lua colors table |
-| Web / other clients | [`dist/web/`](dist/web/) | CSS variables + resolved JSON and JavaScript |
-
-**Detailed, copy-ready commands:** [docs/INSTALL.md](docs/INSTALL.md)
-
-## Repository map
-
-```text
-aporia/
-├── aporia/
-│   ├── tokens.json                 # ONLY canonical source of token values
-│   ├── RULES.md                    # Core, Editorial, Interface and Lacuna rules
-│   └── build.mjs                   # shared token resolver + 327-pair WCAG gate
-├── scripts/
-│   ├── build.mjs                   # orchestrates all generators
-│   ├── build-platforms.mjs         # VS Code, Kitty, Ghostty, Alacritty, WezTerm
-│   ├── build-gallery.mjs           # gallery from exact resolved host tokens
-│   ├── check.mjs                   # offline structural and content checks
-│   └── check-drift.mjs             # byte-identical rebuild detection
-├── dist/                           # generated artifacts and installation guides
-│   ├── helix/  zed/  vscode/
-│   ├── kitty/  ghostty/  alacritty/  wezterm/
-│   ├── web/                        # CSS, JS, resolved JSON
-│   └── reports/                    # token ownership and contrast details
-├── previews/
-│   ├── src/                        # browser specimen layout & examples only
-│   └── dist/                       # 24 standalone HTML pages + index
-├── docs/                           # architecture, installation, QA, identity
-├── .github/workflows/validate.yml
-└── package.json
+```sh
+npm ci
+npm run build:site
+npx playwright install chromium
+npm run test:visual
+npm run package:skill
 ```
 
-## Design authority
+The complete site is in `site-output/`. Open its `index.html` locally or serve that directory under any static host. For GitHub Pages, set Pages source to GitHub Actions and run the **Publish Aporia design system** workflow.
 
-1. **[`aporia/tokens.json`](aporia/tokens.json)** owns numeric and color values; **[`aporia/RULES.md`](aporia/RULES.md)** owns the scope of identity rules.
-2. `aporia/build.mjs` resolves all tokens and writes canonical web, Helix and Zed outputs. The platform and gallery generators consume those **resolved values**; they cannot re-pick a color.
-3. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) describes adapters; [`docs/BRAND.md`](docs/BRAND.md) offers non-conflicting creative guidance.
-4. `previews/dist` is **illustrative**: staged browser approximations, not true captures of the host editors. Theme artifacts are the installable source of truth for each host.
-5. Aporia Editorial's printed-page constraints **do not** prohibit ordinary application UI, icons, density or dark modes in Aporia Interface and Lacuna.
-
-## Current validation status
-
-- 48 primitive color tokens; 79 semantic color roles for each of two modes.
-- 327 canonical WCAG contrast pair checks, passing at generation time.
-- Dependency-free structural verification, local HTML link checks, JSON parsing, optional Python 3.11+ TOML parsing, and deterministic build checks.
-- Real Helix, Zed, VS Code and terminal **host runtime screenshots have not been verified** in this package. See [docs/QA.md](docs/QA.md) for repeatable manual acceptance steps.
-
-## Changing a token
-
-Edit `aporia/tokens.json`, run `npm run build`, inspect the host outputs and preview gallery, then run `npm run verify`. Do not hand-edit generated artifacts in `dist/` or `previews/dist/`.
-
-**License:** no open-source license has been selected on the author's behalf. See [LICENSE-NOTICE.md](LICENSE-NOTICE.md) before publishing or accepting external contributions.
+See [the QA guide](docs/QA.md) and [contribution guide](CONTRIBUTING.md). Distributed under the [Apache License 2.0](LICENSE), with attribution in [NOTICE](NOTICE) and separate licenses for the bundled fonts.

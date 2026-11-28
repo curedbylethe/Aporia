@@ -2,9 +2,9 @@
   "name": "lacuna-theme",
   "displayName": "Lacuna — Aporia Themes",
   "description": "Lacuna Paper and Lacuna Ink color themes generated from Aporia design tokens.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "aporia",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "private": true,
   "engines": {
     "vscode": "^1.85.0"

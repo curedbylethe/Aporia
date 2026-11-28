@@ -14,8 +14,8 @@ Read the tag before applying a rule.
 | `UI` | Interface mode: applications, editors, terminals, documentation tools, dashboards, settings. |
 | `PLATFORM` | A named adapter (Lacuna/Helix, Lacuna/Zed, terminal, mobile) replacing a mode rule for a host reason. Must be declared in the adapter file. |
 
-Precedence: `CORE` → mode (`EDIT` or `UI`) → `PLATFORM`. A platform adapter may replace a
-mode rule, never a Core rule. An artifact belongs to exactly one mode; a hybrid page states
+Precedence: `CORE` → mode (`EDIT` or `UI`) → `PLATFORM`. A platform adapter may replace a mode rule or use an explicitly permitted
+Core capability substitution. Preserve the Core purpose and document the change. An artifact belongs to exactly one mode; a hybrid page states
 which mode governs each region.
 
 ---
@@ -26,9 +26,9 @@ The parts that survive being moved to a code editor, a phone, or a terminal.
 
 - **Two grounds, one ink.** Paper is bone `#EDE4D3` with onyx `#0D0D0D`. Ink is coal
   `#191B1A` with bone lettering. Both are Core. `CORE`
-- **Seven primitives.** Bone, raised sheet, onyx, ink-muted, hairline, brownred, chestnut.
-  Everything else is a semantic role resolved from them. A new hue needs a functional need
-  written down, not a mood. `CORE`
+- **Semantic palette.** Bone, onyx, coal and red carry the identity. Other primitives support
+  legibility, surfaces, syntax, charts and ANSI compatibility. Every added hue needs a written
+  functional purpose. `CORE`
 - **Red is an impression.** Limit decorative red to one dominant anchor per view: a rule, a
   star, a 5px square, a stamp border, one emphatic word. Functional red is permitted wherever
   semantics, safety, focus, diagnostics or syntax require it: focus rings, errors, diff
@@ -46,9 +46,9 @@ The parts that survive being moved to a code editor, a phone, or a terminal.
 - **Three families.** Russo One for display, Golos Text for prose and UI, JetBrains Mono for
   indices, metadata and code. Display is uppercase, 1.0 leading, −0.02em. Mono metadata is
   uppercase with 0.08em tracking. `CORE`
-- **Mono is a metadata treatment, not a body font.** Uppercase tracked mono may label a
-  plate, an index, a timestamp or a status. It may not set sentences, form labels, menu
-  items, or code itself. `CORE`
+- **Separate metadata from code.** Use uppercase tracked mono for brief folios, dates and
+  labels. Code, paths, identifiers and terminal text use natural case and normal tracking.
+  Use body type for prose and form labels where available. `CORE`
 - **Contrast floors.** Body text 4.5:1, large text and control boundaries 3:1. Disabled is
   the only state allowed to fall below. Hover never reduces contrast; it moves the ground by
   6–12% of one OKLch lightness step or changes the border. `CORE`
@@ -65,18 +65,18 @@ The parts that survive being moved to a code editor, a phone, or a terminal.
 
 The printed sheet. Every rule below is `EDIT` and stops at the edge of the page.
 
-- **Never a dark page.** Dark ground appears only inside code, terminal and evidence plates.
-  `EDIT`
-- **Exactly one raised sheet per page**, and the footer is the only sunken band. No third
-  paper tone, no card grids. `EDIT`
+- **Paper by default.** Print always uses Paper. Digital publications may offer an explicit Ink
+  reading preference with equivalent hierarchy and contrast. Evidence plates may use either mode. `EDIT`
+- **One raised sheet in print-like layouts.** Long-form documentation may use a continuous canvas,
+  sectional breaks and bounded evidence plates. Keep related material grouped. `EDIT`
 - **One red anchor per page**: a 40 × 2px rule under the wordmark, or the 24px faded star
   beside the section numeral. Not both on the same page. `EDIT`
-- **Asymmetry.** Numeral in column 1, title across 2–9, mono meta right-aligned in 10–12, a
-  ghost numeral of the page's own number behind, `aria-hidden`. `EDIT`
-- **Double rule under section headers**: 1px border, then a second soft 1px rule 3px below.
-  `EDIT`
-- **The grain plate** sits at 0.42 opacity, multiply, static, over the whole page. `EDIT`
-- **No icons.** The star, the index, the rule and the stamp carry the page. `EDIT`
+- **Asymmetric composition.** Align the principal argument and its evidence. A 12-column
+  grid, folio and right-aligned metadata suit poster and dossier layouts when they aid reading. `EDIT`
+- **Section rules and grain.** Use a double rule or a static grain plate on publication surfaces
+  where it serves the hierarchy. Keep grain away from data and controls. `EDIT`
+- **Publication iconography.** Use type, indices and rules to carry a publication. Embedded
+  interactive regions follow Interface and can use functional icons. `EDIT`
 - **Evidence plates, not illustration.** A real screenshot or recording in a bordered plate
   with a plate number, a provenance label (Recording, Screenshot, Staged, Simulation,
   Pending) and a caption saying where it came from. No photography, no drawn scenes. `EDIT`
@@ -104,8 +104,8 @@ printed page never has. They extend the identity rather than borrow the poster.
   marks, folio indices and brackets instead. `UI`
 - **Grain never sits over UI.** It may appear on an empty state or a poster surface at ≤0.08
   opacity, never over text, charts, controls or data. `UI`
-- **Charts encode with fills**, no hollow outlines; every series carries a label and a value,
-  and the axis is declared. `UI`
+- **Charts encode by shape and label.** Use distinct fills, patterns or outlined markers, label
+  series and values, and declare the axes and units. `UI`
 - **Keyboard first.** Every command has a focus path, every dialog traps and restores focus,
   every destructive action confirms with a labelled button rather than a colour. `UI`
 
@@ -129,10 +129,12 @@ An adapter maps Core semantic roles onto a host and declares every deviation.
   from `color.paper.syntax` / `color.ink.syntax` and are not re-picked per host. Helix TOML
   and Zed JSON are generated, never hand-tuned; a host that cannot express a role gets a
   documented nearest role. `PLATFORM`
-- **Terminals** use `color.*.terminal`, including the ANSI ramp, and keep the 16 colours
-  legible on the terminal ground alone. `PLATFORM`
+- **Terminals** use `color.*.terminal`, including the ANSI ramp, and keep ANSI text legible on the terminal ground. Ink ANSI 0 is a background slot.
+  Use host defaults and textual state cues on monochrome hosts. `PLATFORM`
 - **Native chrome** may adopt host metrics (title bars, 44px iOS targets, 48dp Android) and
-  host motion curves; type families, geometry, palette and the red rule do not change.
+  host motion curves and system controls. When fonts, color depth, geometry or focus
+  styles are unavailable, use the nearest native affordance and preserve hierarchy,
+  legibility, visible focus and semantic state.
   `PLATFORM`
 - **Every override is annotated** in the adapter file with the role, the replacement and the
   reason. An undocumented override is a bug. `PLATFORM`
@@ -140,9 +142,9 @@ An adapter maps Core semantic roles onto a host and declares every deviation.
 ## 5. Token architecture
 
 ```
-reference  color.ref.*          48 primitives, OKLch, one meaning each
+reference  color.ref.*          palette primitives, OKLch and sRGB
    ↓
-semantic   color.{paper,ink}.*  79 roles per mode, identical key sets
+semantic   color.{paper,ink}.*  identical role keys per mode
    ↓
 component  interactive.*, status.*, editor.*, chart.*, terminal.*
    ↓
@@ -155,11 +157,11 @@ adapter    Helix TOML · Zed JSON · CSS variables · native maps
   `scripts/build-platforms.mjs` maps those resolved roles to other supported
   formats; `scripts/build-gallery.mjs` renders 24 specimens. Neither may choose
   independent colors. Use `npm run build` to regenerate everything.
-- **Provenance.** Every token carries `$extensions.aporia.p`: `canonical`, `proposed`,
+- **Provenance.** Authored primitive colors carry `$extensions.aporia.p`: `canonical`, `proposed`,
   `refined` or `derived`. An unprovenanced token is a draft.
 - **Parity.** Paper and ink must expose identical semantic keys. `build.mjs` asserts this;
   an ink role with no paper counterpart fails the build.
-- **Gate.** 327 gated contrast pairs, 0 failures, WCAG 2.2 relative luminance. A failure
+- **Gate.** Role and surface coverage, passing WCAG 2.2 relative luminance. A failure
   exits non-zero. Exemptions live in `build.mjs`, not in a comment somewhere else.
 - **Acceptance test.** Change one primitive, run `npm run build`, and every
   generated output moves together without a manual edit. `npm run check:drift`
@@ -168,7 +170,7 @@ adapter    Helix TOML · Zed JSON · CSS variables · native maps
 
 ## 6. Conflict resolution
 
-1. Core beats mode. Mode beats platform.
+1. Core establishes intent. Mode governs the artifact and platform documents allowable capability substitutions.
 2. A brand source supplied by the user beats this file for that artifact only.
 3. If a rule blocks a real task — a dark editor, a data table, a required icon — the answer
    is a documented mode or adapter rule, not a broken layout and not a silent exception.

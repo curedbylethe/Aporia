@@ -15,10 +15,49 @@ const eq=(a,b,msg)=>{assert.deepEqual(a,b,msg);checks++;};
 const rel=(folder)=>fs.readdirSync(path.join(root,folder),{withFileTypes:true}).filter(f=>f.isFile()).map(f=>f.name);
 const canon=json('aporia/tokens.json'); const resolved=json('dist/web/tokens.resolved.json');
 ok(canon.color?.paper && canon.color?.ink,'canonical tree must define both modes');
-eq(resolved.refs.length,48,'expected original Aporia primitive count');
-eq(resolved.semantic.length,79,'expected original Aporia semantic count');
-eq(resolved.contrast.length,327,'expected original Aporia contrast coverage');
-eq(resolved.contrast.filter(r=>!r.pass).length,0,'contrast regression');
+const leaves = (tree, prefix = '') => Object.entries(tree).flatMap(([key, token]) => {
+  const name = prefix ? `${prefix}.${key}` : key;
+  if (key.startsWith('$')) return [];
+  if (Object.hasOwn(token, '$value')) {
+    ok(typeof token.$type === 'string' && token.$value !== null, `invalid token ${name}`);
+    return [name];
+  }
+  return leaves(token, name);
+});
+leaves(canon);
+const paperKeys = leaves(canon.color.paper).sort();
+eq(paperKeys, leaves(canon.color.ink).sort(), 'Paper and Ink role parity');
+eq(paperKeys, resolved.semantic.map(({ key }) => key).sort(), 'resolved semantic role coverage');
+eq(leaves(canon.color.ref).sort(), resolved.refs.map(({ name }) => name).sort(), 'resolved primitive coverage');
+const tokenValue = (value) => {
+  const alias = typeof value === 'string' && /^\{(.+)\}$/.exec(value);
+  if (!alias) return value;
+  const target = alias[1].split('.').reduce((tree, key) => tree[key], canon);
+  return tokenValue(target.$value);
+};
+for (const [name, role] of Object.entries(canon.type)) {
+  for (const metric of ['size', 'leading', 'tracking', 'weight']) {
+    eq(resolved.typography[name][metric], tokenValue(role[metric].$value), `resolved typography ${name}.${metric}`);
+    ok(read('dist/web/aporia.css').includes(`--type-${name}-${metric}: `), `missing CSS type role ${name}.${metric}`);
+  }
+}
+const contrast = new Map(resolved.contrast.map(pair => [`${pair.mode}/${pair.fg}/${pair.bg}`, pair]));
+eq(contrast.size, resolved.contrast.length, 'unique contrast pairs');
+const requirePair = (mode, fg, bg, min) => {
+  const pair = contrast.get(`${mode}/${fg}/${bg}`);
+  ok(pair?.pass && pair.min === min, `missing or failed contrast ${mode} ${fg} on ${bg}`);
+};
+for (const mode of ['paper', 'ink']) {
+  for (const fg of paperKeys.filter(key => key.startsWith('syntax.'))) {
+    for (const bg of ['bg.canvas', 'editor.line-active', 'editor.selection', 'editor.search-match', 'editor.diff-added', 'editor.diff-removed'])
+      requirePair(mode, fg, bg, 4.5);
+  }
+  for (const fg of paperKeys.filter(key => key.startsWith('chart.'))) requirePair(mode, fg, 'bg.canvas', 3);
+  requirePair(mode, 'fg.primary', 'bg.canvas', 4.5);
+  requirePair(mode, 'border.focus', 'bg.canvas', 3);
+  requirePair(mode, 'terminal.fg', 'terminal.bg', 4.5);
+}
+ok(resolved.contrast.every(({ ratio, min, pass }) => pass && ratio >= min), 'contrast regression');
 const sem=Object.fromEntries(resolved.semantic.map(s=>[s.key,s]));
 const hex=/^#[0-9A-Fa-f]{6}$/;
 for(const m of ['paper','ink']){
@@ -75,7 +114,16 @@ for(const name of rel('previews/dist').filter(f=>f.endsWith('.html'))){
     if(target)ok(fs.existsSync(path.join(root,'previews/dist',target)),`broken ${name} -> ${href}`);
   }
 }
-eq(htmlCount,25,'24 standalone specimens + index');
+for (const host of ['helix', 'zed'])
+  for (const mode of ['paper', 'ink'])
+    for (const lang of ['go', 'rust', 'typescript'])
+      for (const kind of ['work', 'specimen'])
+        ok(read('previews/dist/index.html').includes(`href="${host}-${mode}-${lang}-${kind}.html"`), `gallery entry ${host}/${mode}/${lang}/${kind}`);
+const gallery = read('previews/dist/index.html');
+for (const role of ['keyword', 'type', 'string', 'comment', 'number']) {
+  ok(gallery.includes(`data-syntax="${role}"`), `gallery sample missing syntax role ${role}`);
+}
+eq(gallery, read('previews/dist/lacuna-themes.html'), 'legacy gallery entrypoint');
 const checkPython = spawnSync('python3',['-c','import tomllib,sys;[tomllib.load(open(f,"rb")) for f in sys.argv[1:]]',
   ...['dist/helix/lacuna-paper.toml','dist/helix/lacuna-ink.toml',
   'dist/alacritty/lacuna-paper.toml','dist/alacritty/lacuna-ink.toml']
@@ -84,4 +132,4 @@ if(checkPython.status===0)checks+=4;
 else if(checkPython.error?.code==='ENOENT') console.log('Optional Python TOML parser unavailable; TOML parser test skipped');
 else throw new Error(`TOML parsing failed: ${checkPython.stderr}`);
 console.log(`aporia: ${checks} structural assertions passed; ${htmlCount} standalone HTML pages verified`);
-console.log('aporia: 327/327 original WCAG pairs passed; real host rendering remains unverified');
+console.log(`aporia: ${contrast.size} WCAG pairs passed`);

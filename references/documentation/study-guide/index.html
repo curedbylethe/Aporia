@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Execution order | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Study guide</span></header>
+<main>
+<p class="meta">JavaScript scheduling · worked example and practice</p>
+<h1>Execution order<span class="accent">.</span></h1>
+<p class="lead">Predict the order of synchronous work, microtasks and timer callbacks, then run the fixture.</p><div class="toolbar" role="tablist" aria-label="Study topics"><button role="tab" id="tab-model" aria-controls="model" aria-selected="true">Execution model</button><button role="tab" id="tab-practice" aria-controls="practice" aria-selected="false" tabindex="-1">Practice</button></div><div class="layout"><div><section id="model" role="tabpanel" aria-labelledby="tab-model"><nav aria-label="Execution model contents"><a href="#example">Worked example</a><a href="#checkpoint">Microtask checkpoint</a></nav><section class="band" aria-labelledby="example"><h2 id="example">Worked example</h2><pre class="plate"><code>console.log('A');
+setTimeout(() =&gt; console.log('C'), 0);
+queueMicrotask(() =&gt; console.log('B'));</code></pre><div class="toolbar"><button class="primary" id="run">Run fixture</button><output id="result" aria-live="polite">Ready</output></div></section><section class="band" aria-labelledby="checkpoint"><h2 id="checkpoint">Microtask checkpoint</h2><p>The current script prints A before it ends. The microtask prints B before the browser starts the next timer callback.</p></section></section><section id="practice" role="tabpanel" aria-labelledby="tab-practice" hidden><nav aria-label="Practice contents"><a href="#exercise">Exercise</a><a href="#solution">Solution</a></nav><h2 id="exercise" class="band">Practice</h2><p>Append a synchronous log of D. Where does D appear?</p><details id="solution"><summary>Reveal solution</summary><p>A, D, B, C. The current stack finishes before the microtask checkpoint.</p></details></section></div><aside class="plate sticky"><h2>Order</h2><ol><li>Current stack</li><li>Microtask checkpoint</li><li>Next task</li></ol></aside></div>
+</main>
+<script>const tabs = [...document.querySelectorAll('[role=tab]')];
+function activate(tab) {
+  for (const option of tabs) {
+    const selected = option === tab;
+    option.tabIndex = selected ? 0 : -1;
+    option.setAttribute('aria-selected', String(selected));
+    document.getElementById(option.getAttribute('aria-controls')).hidden = !selected;
+  }
+}
+tabs.forEach((tab, index) => {
+  tab.onclick = () => activate(tab);
+  tab.onkeydown = event => {
+    const keys = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 };
+    if (!(event.key in keys)) return;
+    event.preventDefault();
+    const next = tabs[keys[event.key]];
+    activate(next);
+    next.focus();
+  };
+});
+const run = document.querySelector('#run');
+const result = document.querySelector('#result');
+run.onclick = () => {
+  run.disabled = true;
+  result.textContent = 'A';
+  setTimeout(() => { result.textContent += ', C'; run.disabled = false; }, 0);
+  queueMicrotask(() => { result.textContent += ', B'; });
+};</script>
+</body>
+</html>

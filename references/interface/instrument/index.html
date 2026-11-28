@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>String tuner | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Instrument</span></header>
+<main>
+<p class="meta">Reference tone generator · standard guitar tuning</p>
+<h1>String tuner<span class="accent">.</span></h1>
+<p class="lead">Choose a string and play its reference pitch.</p><section class="plate"><div class="toolbar"><label>String<select id="string"><option value="82.41">E2 · low E</option><option value="110">A2</option><option value="146.83">D3</option><option value="196">G3</option><option value="246.94">B3</option><option value="329.63">E4 · high E</option></select></label><button id="tone" class="primary">Play reference tone</button></div><p class="numeric" style="text-align:start"><output id="frequency" for="string">82.41</output> Hz</p><p id="tone-status" role="status">Ready</p></section><p class="band">Match the string to the generated tone by ear.</p>
+</main>
+<script>const strings = document.querySelector('#string');
+const frequency = document.querySelector('#frequency');
+const control = document.querySelector('#tone');
+const status = document.querySelector('#tone-status');
+let audio;
+let tone;
+strings.onchange = () => {
+  frequency.value = strings.value;
+  if (tone) tone.frequency.value = Number(strings.value);
+};
+control.onclick = async () => {
+  if (tone) {
+    tone.stop();
+    tone = undefined;
+    control.textContent = 'Play reference tone';
+    status.textContent = 'Stopped';
+    return;
+  }
+  control.disabled = true;
+  try {
+    audio ??= new AudioContext();
+    await audio.resume();
+    const oscillator = audio.createOscillator();
+    const volume = audio.createGain();
+    volume.gain.value = 0.08;
+    oscillator.frequency.value = Number(strings.value);
+    oscillator.connect(volume).connect(audio.destination);
+    oscillator.onended = () => { oscillator.disconnect(); volume.disconnect(); };
+    oscillator.start();
+    tone = oscillator;
+    control.textContent = 'Stop tone';
+    status.textContent = 'Playing';
+  } catch {
+    status.textContent = 'Audio unavailable in this browser';
+  } finally {
+    control.disabled = false;
+  }
+};</script>
+</body>
+</html>

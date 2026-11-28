@@ -17,7 +17,7 @@
 ```text
 aporia/tokens.json (Design Tokens-style aliases, OKLCH/sRGB)
     │
-    └─ aporia/build.mjs ── 327-pair WCAG 2.2 contrast gate
+    └─ aporia/build.mjs ── role-based WCAG 2.2 contrast gate
            ├─ dist/web/aporia.css
            ├─ dist/web/tokens.js
            ├─ dist/web/tokens.resolved.json
@@ -53,7 +53,11 @@ The CSS and host formats don't have identical APIs. Host limitations (e.g., Tree
 
 ### Fonts
 
-The gallery CSS references generated custom properties for the canonical font stacks from `aporia/tokens.json`. Web fonts are **not bundled**: Russo One, Golos Text, and JetBrains Mono fall back gracefully if absent. Terminal theme files contain colors only and do not change user font settings or solve Persian text shaping.
+The comparison page, documentation site and references use the canonical font stacks
+and bundle Latin WOFF2 subsets of Russo One, Golos Text and JetBrains Mono.
+Per-font SIL Open Font License notices are in `assets/fonts/`. Other scripts use
+the canonical fallback stacks. Terminal themes set colors and preserve host font
+configuration. See [Typography](TYPOGRAPHY.md) for role and script guidance.
 
 ## Running and checking
 

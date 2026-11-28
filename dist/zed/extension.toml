@@ -1,8 +1,7 @@
 id = "lacuna"
 name = "Lacuna"
-version = "0.1.0"
+version = "0.2.0"
 schema_version = 1
 authors = ["Aporia"]
 description = "Lacuna Paper and Lacuna Ink, generated from Aporia tokens"
-# Planned repository address; verify or change before publishing the extension.
-repository = "https://github.com/curedbylethe/aporia"
+repository = "https://github.com/curedbylethe/Aporia"

@@ -1,6 +1,6 @@
 # Host and visual QA checklist
 
-Browser specimens are **staged simulations**, not authentic screenshots. Run the following before tagging a release.
+The [capture record](screenshots/) lists native windows and staged browser specimens. Run the following before tagging a release.
 
 ## Build gate
 
@@ -8,6 +8,15 @@ Browser specimens are **staged simulations**, not authentic screenshots. Run the
 - [ ] `npm test` passes canonical contrast and artifact/link checks.
 - [ ] `npm run check:drift` produces no generated-file changes.
 - [ ] Theme files are inspected for unintended platform-specific colors.
+
+## Automated browser checks
+
+After `npm ci` and `npx playwright install chromium`, run `npm run test:visual`.
+Checks cover responsive overflow, axe accessibility rules, keyboard interaction,
+filtering, selection, confirmation focus restoration and Paper print. Run
+`npm run capture:browser` to regenerate representative PNGs and inspect their
+changes separately from native captures. Run `npm run build:site` to stage the
+static documentation site for deployment.
 
 ## Editor acceptance (both Paper and Ink)
 
@@ -43,7 +52,7 @@ Run a truecolor test and an ANSI 0–15 matrix in both modes. For 256-color term
 
 ## Open limitations
 
-1. Native editors and terminal emulators are not shipped with this repository; real-host QA cannot be demonstrated by Node checks alone.
+1. Native PNGs verify the visible states listed in the capture record. Full diagnostic, diff, LSP, accessibility and platform acceptance still requires the manual checklist.
 2. Zed publishes a JSON schema (v0.2.0) but support for a specific set of style keys varies with the installed build. If a key is ignored or mapped differently, document and adjust the adapter.
 3. Browser approximations tokenize code themselves. They do not reproduce Helix's grammar captures or Zed/VS Code semantic-token precedence.
 4. Persian shaping, terminal cell widths, ligatures and font coverage are host/font responsibilities, not color-theme features.

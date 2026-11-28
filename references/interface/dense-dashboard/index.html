@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runtime overview | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Operations interface</span></header>
+<main>
+<p class="meta">Search and inspect fixture observations.</p>
+<h1>Runtime overview<span class="accent">.</span></h1>
+<div class="toolbar"><label>Filter by process<input id="process-filter" type="search" autocomplete="off"></label></div><p id="row-count" role="status">4 records</p><div class="table-wrap" tabindex="0" aria-label="Process observations"><table><thead><tr><th scope="col">Process</th><th scope="col" class="numeric">PID</th><th scope="col" class="numeric">RSS (MiB)</th><th scope="col" class="numeric">CPU (%)</th><th scope="col">Finding</th></tr></thead><tbody><tr data-record><th scope="row">indexer</th><td class="numeric">812</td><td class="numeric">284</td><td class="numeric">0.4</td><td>Sleeping</td></tr><tr data-record><th scope="row">reader</th><td class="numeric">907</td><td class="numeric">106</td><td class="numeric">1.8</td><td>Active</td></tr><tr data-record><th scope="row">worker</th><td class="numeric">914</td><td class="numeric">29</td><td class="numeric">0.0</td><td>Review suggested</td></tr><tr data-record><th scope="row">server</th><td class="numeric">978</td><td class="numeric">18</td><td class="numeric">0.2</td><td>Active</td></tr></tbody></table></div><p class="band">Synthetic snapshot. RSS is process resident memory at sample time.</p>
+</main>
+<script>const filter = document.querySelector('#process-filter');
+filter.oninput = () => {
+  let shown = 0;
+  for (const row of document.querySelectorAll('[data-record]')) {
+    row.hidden = !row.querySelector('th').textContent.includes(filter.value.trim().toLowerCase());
+    shown += Number(!row.hidden);
+  }
+  document.querySelector('#row-count').textContent = shown ? `${shown} ${shown === 1 ? 'record' : 'records'}` : 'No matching processes';
+};</script>
+</body>
+</html>

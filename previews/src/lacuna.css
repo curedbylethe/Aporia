@@ -16,9 +16,9 @@
   --body: var(--aporia-font-body);
   --mono: var(--aporia-font-mono);
 
-  --pad: 32px;
+  --pad: var(--space-6);
   --measure: 62ch;
-  --ease: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease: var(--motion-ease);
 }
 
 *,
@@ -31,7 +31,7 @@ body {
   margin: 0;
   background: var(--bone);
   color: var(--onyx);
-  font: 400 16px/1.55 var(--body);
+  font: var(--type-body-weight) var(--type-body-size)/var(--type-body-leading) var(--body);
   -webkit-font-smoothing: antialiased;
 }
 

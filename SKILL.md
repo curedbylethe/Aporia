@@ -1,20 +1,16 @@
-# Aporia — instructions for design and coding agents
+---
+name: aporia-design
+description: Design and review web documents, interfaces and terminal tools using the Aporia design system and Lacuna themes.
+---
 
-## Sources in priority order
+# Aporia design workflow
 
-1. `aporia/tokens.json`: only authority for raw and semantic token values.
-2. `aporia/RULES.md`: authority for Core, Editorial, Interface and Lacuna scope.
-3. `docs/ARCHITECTURE.md`: adapter and generated-output responsibilities.
-4. `docs/BRAND.md` and `docs/DESIGN.md`: contextual editorial guidance.
-5. `previews/dist/`: simulated examples, **not authoritative pixel references for real editors**.
+Read [AGENTS.md](AGENTS.md), then run the workflow below. For installation outside the repository, see [the portable package](packages/agent-skill/).
 
-## Required workflow
+1. Name the audience and foremost task. Select Editorial, Interface or modes by region.
+2. Read the applicable rule and choose a reference with the same task. In the source repository, follow the reference table in AGENTS.md.
+3. Arrange the content and interactions in reading or operating order. Keep evidence near its claim and controls near their object.
+4. Use semantic roles, the type ramp and the canonical font stacks. Keep Paper for print and translate the roles to actual host affordances.
+5. Verify focus, state labels, narrow layouts, readability and grayscale. Record any substitution and the evidence you used.
 
-1. Identify Core, Editorial, Interface or Lacuna and target host.
-2. For a color or font change, edit `aporia/tokens.json`. Do **not** edit `dist/` or `previews/dist/`.
-3. For a platform key-mapping change, edit the appropriate existing generator. Don't create a second palette.
-4. `npm run build && npm test && npm run check:drift`.
-5. Verify corresponding generated theme and gallery specimen; for host-related changes, run the manual checks in `docs/QA.md`.
-6. Describe changes, affected roles and host limitations without claiming runtime tests that were not performed.
-
-Do not reinterpret Lacuna as an independent identity or apply editorial-only layout rules to functional apps.
+For the source project use https://github.com/curedbylethe/Aporia .

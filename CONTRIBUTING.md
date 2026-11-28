@@ -12,4 +12,4 @@ npm run check:drift
 
 For changes to editor appearance, include the host name/version and screenshots showing a selection, a diagnostic, a diff and at least one full code specimen. See `docs/QA.md`.
 
-The project owner has not selected a public contribution license yet; please confirm licensing expectations before contributing code or artwork.
+Aporia contributions are distributed under [Apache License 2.0](LICENSE). Include required attribution from [NOTICE](NOTICE) when redistributing the project.

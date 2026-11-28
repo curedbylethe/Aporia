@@ -10,3 +10,7 @@ node_modules/
 *.log
 *.vsix
 *.zip
+
+site-output/
+packages/agent-skill/dist/
+__pycache__/

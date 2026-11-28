@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOOX companion | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Architecture proposal</span></header>
+<main>
+<p class="meta">Decision record for a local-first desktop companion.</p>
+<h1>BOOX companion<span class="accent">.</span></h1>
+<p class="lead">Start with recoverable file transfer and a read-only notes index. Add write-back after the device format and conflict semantics have been verified.</p><div class="layout"><section class="band"><h2>Architecture</h2><figure class="plate"><ol><li>The adapter reads device files and stages copies.</li><li>The catalogue writes hashes and transfer state in a transaction.</li><li>The desktop UI reads staged state and presents conflicts.</li></ol><figcaption>Initial transfer path. The device adapter owns each device-specific protocol.</figcaption></figure><table><thead><tr><th scope="col">Boundary</th><th scope="col">Responsibility</th></tr></thead><tbody><tr><th scope="row">Device adapter</th><td>Enumerate files and stage copies by device identity.</td></tr><tr><th scope="row">Local catalogue</th><td>Persist hashes, index notes and record sync state in SQLite.</td></tr><tr><th scope="row">Desktop UI</th><td>Show pending operations, conflicts and the next safe action.</td></tr></tbody></table></section><aside class="plate"><h2>Constraints</h2><ul><li>Work offline.</li><li>Preserve originals during sync.</li><li>Record firmware and file variants.</li><li>Avoid cloud dependencies for the first release.</li></ul></aside></div><section class="band"><h2>Open question</h2><p>Can edits preserve an unknown note's metadata? Round-trip fixtures across firmware versions before enabling write-back.</p><h3>Dependency</h3><p>SQLite supports atomic catalogue updates and local queries without a separate service. Keep device I/O outside its transaction and reconcile the staged files after a retry.</p><h3>Alternative</h3><p>A cloud relay would simplify discovery at the cost of offline use and an additional trust boundary.</p></section>
+</main>
+
+</body>
+</html>

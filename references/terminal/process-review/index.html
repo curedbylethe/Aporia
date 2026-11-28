@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-theme="ink">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process review | Aporia reference</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../dist/web/aporia.css">
+<link rel="stylesheet" href="../../../site/aporia.css">
+</head>
+<body>
+<header class="top"><a href="../../index.html">Aporia references</a><span class="meta">Terminal interface</span></header>
+<main>
+<p class="meta">Keyboard simulation · synthetic records</p>
+<h1>Process review<span class="accent">.</span></h1>
+<p class="lead">Filter the findings, inspect the selected record and preview the close confirmation.</p><div class="toolbar"><label>Filter findings<input id="finding-filter" type="search" autocomplete="off"></label></div><div class="layout"><section><h2>Findings</h2><div id="findings" aria-label="Process findings" class="toolbar"></div></section><section class="plate" aria-labelledby="inspection-title"><h2 id="inspection-title">Evidence</h2><p id="detail" aria-live="polite"></p><button id="close" class="danger">Review close action</button></section></div><p class="band">↑ ↓ Select · / Filter · Esc Cancel confirmation</p><p id="review-status" role="status"></p><dialog id="confirm" aria-labelledby="confirm-title"><h2 id="confirm-title">Confirm simulated close</h2><p id="target"></p><form method="dialog" class="toolbar"><button autofocus value="cancel">Cancel</button><button class="danger" value="confirm">Simulate close</button></form></dialog>
+</main>
+<script>const records = [
+  { name: 'worker / 4312', rss: 220, reason: 'Parent exited. Review recommended.' },
+  { name: 'python / 5332', rss: 16, reason: 'Listening service remains attached to an old job.' },
+  { name: 'node / 4817', rss: 34, reason: 'Launch context is unavailable.' },
+];
+const filter = document.querySelector('#finding-filter');
+const list = document.querySelector('#findings');
+const detail = document.querySelector('#detail');
+const close = document.querySelector('#close');
+const dialog = document.querySelector('#confirm');
+let visible = [];
+let selected = 0;
+function inspect() {
+  const item = visible[selected];
+  [...list.children].forEach((button, index) => button.setAttribute('aria-pressed', String(index === selected)));
+  detail.textContent = item ? `${item.name} · ${item.rss} MiB RSS. ${item.reason}` : 'No matching findings.';
+  close.disabled = !item;
+}
+function applyFilter() {
+  visible = records.filter(item => item.name.includes(filter.value.trim().toLowerCase()));
+  selected = 0;
+  list.replaceChildren(...visible.map((item, index) => {
+    const button = document.createElement('button');
+    button.textContent = item.name;
+    button.onclick = () => { selected = index; inspect(); };
+    return button;
+  }));
+  inspect();
+}
+filter.oninput = applyFilter;
+close.onclick = () => {
+  document.querySelector('#target').textContent = `Simulate closing ${visible[selected].name}.`;
+  dialog.returnValue = 'cancel';
+  dialog.showModal();
+};
+dialog.onclose = () => {
+  if (dialog.returnValue === 'confirm') document.querySelector('#review-status').textContent = `Simulated close for ${visible[selected].name}.`;
+  close.focus();
+};
+document.addEventListener('keydown', event => {
+  if (dialog.open || event.target === filter || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === '/') { event.preventDefault(); filter.focus(); }
+  if (visible.length && ['ArrowUp','ArrowDown'].includes(event.key)) {
+    event.preventDefault();
+    selected = (selected + (event.key === 'ArrowDown' ? 1 : visible.length - 1)) % visible.length;
+    inspect();
+    list.children[selected].focus();
+  }
+});
+applyFilter();</script>
+</body>
+</html>
